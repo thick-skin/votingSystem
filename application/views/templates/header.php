@@ -52,30 +52,30 @@
 }
 
 #about {
-    top: 220px;
+    top: 210px;
     background-color: #555;
 }
 
 #candidates {
-    top: 280px;
+    top: 260px;
     background-color: #555;
 }
 
 #admin {
-    top: 340px;
+    top: 310px;
     background-color: #555;
 }
 
 #votes {
-    top: 400px;
+    top: 360px;
     background-color: #4CAF50;
 }
 #register {
-  top: 340px;
+  top: 310px;
   background-color: #555;
 }
 #dashb {
-  top: 400px;
+  top: 360px;
   background-color: #555;
 }
 
@@ -127,12 +127,19 @@
 </head>
 <body id="vote" style="background-color: lightgrey;">
 	<div id="mySidenav" class="sidenav">
+  <?php if (!$this->session->userdata('voter_in')): ?>
   <a href="<?php echo base_url(); ?>" id="home">Home <span style="float: right;" class="glyphicon glyphicon-home"></span></a>
   <a href="<?php echo base_url(); ?>about" id="about">About<span style="float: right;" class="glyphicon glyphicon-info-sign"></span></a>
+  <?php endif; ?>
   <a href="<?php echo base_url(); ?>users/candidates" id="candidates">Candidates<span style="float: right;" class="glyphicon glyphicon-user"></span></a>
   <?php if (!$this->session->userdata('log_in')) : ?>
+  <?php if (!$this->session->userdata('voter_in')): ?>
   <a href="#" id="admin" data-toggle="modal" data-target="#myadmin">Admin<span style="float: right;" class="glyphicon glyphicon-log-in"></span></a>
-  <a href="#" id="votes" data-toggle="modal" data-target="#myvote">Vote<span style="float: right;" class="glyphicon glyphicon-check"></span></a>
+   <a href="#" id="votes" data-toggle="modal" data-target="#myvote">Vote<span style="float: right;" class="glyphicon glyphicon-check"></span></a>
+  <?php endif ?>
+  <?php if ($this->session->userdata('voter_in')): ?>
+   <a href="<?php echo base_url(); ?>vote/index" id="votes">Vote<span style="float: right;" class="glyphicon glyphicon-check"></span></a>
+  <?php endif ?>
 <?php endif; ?>
 <?php if ($this->session->userdata('log_in')) : ?>
   <a href="<?php echo base_url(); ?>users/register" id="register">Register<span style="float: right;" class="glyphicon glyphicon-edit"></span></a>
@@ -169,12 +176,13 @@
     <div class="modal-content" style="background: transparent;">
       <div class="modal-body">
         <button style="color: red;" type="button" class="close" data-dismiss="modal">&times;</button>
-        <?php echo form_open('vote/index'); ?>
-          <div class="form-group">
-            <input type="text" class="form-control" name="" placeholder="Registration Number">
+        <?php echo form_open('users/loginVoter', array("id" => "voter-login")); ?>
+        <div id="votermessage"></div>
+          <div id="vote-err" class="form-group">
+            <input type="text" class="form-control" name="voterRegNo" id="voterRegNo" placeholder="Registration Number">
           </div>
-          <div class="form-group">
-            <input type="text" class="form-control" name="" placeholder="Vote Key">
+          <div id="vote-err" class="form-group">
+            <input type="text" class="form-control" name="voterKey" id="voterKey" placeholder="Vote Key">
           </div>
           <button type="submit" class="btn btn-success">Submit</button>
         </form>
@@ -185,14 +193,14 @@
 <!--VOTE MODAL ENDS HERE-->
 
 <div class="container-fluid" style="padding-left: 10vh; background-color: rgb(100, 200, 120); height:100px;">
-  <h1 style="font-family: cursive; font-weight: bold;"><a style="text-decoration: none;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
+  <h1 style="font-family: Verdana; font-weight: bold;"><a style="text-decoration: none;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
   <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
 
 <nav class="navbar navbar-default" data-spy="affix" data-offset-top="110" style="border-radius: 0%; border:none; background-color: rgb(100, 200, 120);">
 	<div class="container-fluid">
     <div class="navbar-header">
-      <?php if ($this->session->userdata('log_in')) : ?>
+      <?php if ($this->session->userdata('log_in') || $this->session->userdata('voter_in')) : ?>
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
         <span style="color: white;" class="glyphicon glyphicon-menu-hamburger"></span>
       </button>
@@ -210,13 +218,19 @@
       <li><a href="<?php echo base_url(); ?>users/logout">Logout</a></li>
     </ul>
   <?php endif; ?>
+  <?php if ($this->session->userdata('voter_in')) : ?>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a style="font-weight: bolder; color: white;" href="#"><?php echo ucfirst($this->session->userdata('voter_name')); ?></a></li>
+      <li><a href="<?php echo base_url(); ?>users/logoutVoter">Logout</a></li>
+    </ul>
+  <?php endif; ?>
   </div>
 	 </div>
 </nav>
-<?php if (!$this->session->userdata('log_in')) : ?>
+<?php if (!$this->session->userdata('log_in') && !$this->session->userdata('voter_in')) : ?>
 <div class="dropup" style="position: fixed; bottom: 10vh; right: 55vh; z-index: 20 !important;">
 <button class="btn btn-primary dropdown-toggle" type="button" style="border-radius: 30%; position: fixed; right: 5vh; box-shadow: 0 0 5px grey;" title="Post campaign"><span class="glyphicon glyphicon-share"></span></button>
-   <div class="dropdown-menu" style="background-color: #7fffd4; width: 50vh; padding:10px 10px;">
+   <div class="dropdown-menu" style="background-color: white; width: 50vh; padding:10px 10px;">
       <div id="showmessage"></div>
       <?php echo form_open('pages/create_campaign', array("id" => "campaign-user")); ?>
       <div class="form-group">

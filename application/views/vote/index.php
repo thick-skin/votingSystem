@@ -7,7 +7,7 @@
 		background-attachment: fixed;
 	}*/
 	div.col-sm-6{
-		padding-top: 5vh;
+	/*	padding-top: 5vh;*/
 		padding-bottom: 5vh;
 	}
 	div.well {
@@ -42,7 +42,6 @@
 		<?php foreach ($candidates as $candidate): ?>
 		<?php if ($seat['name'] == $candidate['seat']): ?>
 		<div class="radio">
-			
 	      <label id="candidate"><input type="radio" name="seat-<?= $num; ?>" id="seat-<?= $num; ?>" value="<?php echo $candidate['uname'] ?>" ><?php echo $candidate['first_name'].' '.$candidate['last_name'].' '.$candidate['other_name']; ?></label>
 		
 	    </div>
@@ -79,22 +78,17 @@
           success: function(response) {
            if (response.status == true) {
               console.log(response);
-              // success message and remove class
-      //I had problems here because i didn't add div to the #err and #the-message previously
-              $('div#voted').append('<p class="alert alert-success">'+'Voted'+'</p>');
-              $('div#err').removeClass('has-error')
-                       .removeClass('has-success');
-              $('.text-danger').remove();
 
-              // reset the form
-              me[0].reset();
+              var html = '';
 
-              // close the message after seconds
-              $('.alert-success').delay(500).show(10, function() {
-              $(this).delay(3000).hide(10, function() {
-              $(this).remove();
-              });
-            });
+              html += '<div class="well bg-info"><h3>Thanks for voting.</h3>'+
+						'<h4>Your details are no longer on our records, so you cannot vote again<br>'+
+						'Results will be published at (get time from database here)</h4>'+
+                      '<a class="btn btn-primary" href="<?php echo base_url(); ?>">Exit</a></div>';
+            
+          $('div.col-sm-6').html(html);
+          $('div#mySidenav, ul.navbar-right').html('');
+
             }else{
               $.each(response.messages, function(key, value) {
                 var element = $('#' + key);

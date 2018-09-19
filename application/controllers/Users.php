@@ -211,8 +211,8 @@
 
 			//Set message
 				$this->session->set_flashdata('user_loggedout', 'Logged out');	
-				//session_destroy();	
-			redirect('about');
+				$this->session->sess_destroy();	
+			redirect('home');
 		}
 
 		public function dashboard() {
@@ -271,5 +271,72 @@
 		
 		
 			echo json_encode($data);
+		}
+
+		// Login Voter
+		public function loginVoter()
+		{
+			$data = array('success' => false, 'messages' => array());
+			$data['error'] = false;
+			
+			$this->form_validation->set_rules('voterRegNo', 'voterRegNo', 'required');
+			$this->form_validation->set_rules('voterKey', 'voterKey', 'required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger bg-danger">', '</p>');
+		
+			if ($this->form_validation->run() === FALSE) {
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}else{
+				// Get voterRegNo
+				$voterRegNo = $this->input->post('voterRegNo');
+
+				// Get and encrypt voterKey
+				$voterKey = $this->input->post('voterKey');
+
+				// Login voter
+				$voter_ids = $this->users_model->loginVoter($voterRegNo, $voterKey);
+
+				if ($voter_ids) {
+					// Create session
+					foreach ($voter_ids as $voter_id) {
+						
+					$voter_data = array(
+						'voter_name' => $voter_id['fname'],
+						'voter_id' => $voter_id['id'],
+						'voterdept' => $voter_id['dept'],
+						'voterlevel' => $voter_id['level'],
+						'voter_in' => true
+					);
+
+					$this->session->set_userdata($voter_data);
+					}
+
+				$data['success'] = true;
+
+				} else {
+					$data['error'] = true;
+				}
+				
+			}
+			echo json_encode($data);
+		}
+
+		// Logout voter
+		public function logoutVoter()
+		{
+			if (!$this->session->userdata('voter_in')) {
+			 	redirect('home');
+			 }
+			// Unset user data
+			$this->session->unset_userdata('voter_name');
+			$this->session->unset_userdata('voter_in');
+			$this->session->unset_userdata('voterlevel');
+			$this->session->unset_userdata('voterdept');
+			$this->session->unset_userdata('voter_id');
+
+
+				$this->session->sess_destroy();	
+			redirect('home');
 		}
 	}

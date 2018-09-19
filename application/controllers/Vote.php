@@ -3,6 +3,9 @@
 		
 		public function index()
 		{
+			if (!$this->session->userdata('voter_in')) {
+			 	redirect('home');
+			 }
 			$data['title'] = "Vote";
 			$data['candidates'] = $this->users_model->candidates();
 			$data['seats'] = $this->users_model->get_seats();
@@ -14,6 +17,9 @@
 
 		public function ballot()
 		{	
+			if (!$this->session->userdata('voter_in')) {
+			 	redirect('home');
+			 }
 			$data['candidates'] = $this->users_model->candidates();
 			$data['seats'] = $this->users_model->get_seats();
 
@@ -41,11 +47,39 @@
 			foreach ($seats as $seat) {
 				$stkey++;
 				$voteChoice = $this->input->post('seat-'.$stkey);
+				foreach ($candidates as $candidate) {
+					if ($candidate['uname'] == $voteChoice) {
+					$voteChoiceSeat = $candidate['seat'];
+					$voteChoiceId = $candidate['id'];
+					$voterdept = $this->session->userdata('voterdept');
+					$voterlevel = $this->session->userdata('voterlevel');
+						$this->vote_model->create_vote($voterdept, $voterlevel, $voteChoice, $voteChoiceSeat, $voteChoiceId);
+					}
+				}
 			}
+			// Unset user data
+			$this->session->unset_userdata('voter_name');
+			$this->session->unset_userdata('voter_in');
+			$this->session->unset_userdata('voterlevel');
+			$this->session->unset_userdata('voterdept');
+			$this->session->unset_userdata('voter_id');
+			$this->session->sess_destroy();
 			}
 
 
 			echo json_encode($data);
+		}
+
+		public function thanksForVoting()
+		{
+			// Unset user data
+			$this->session->unset_userdata('voter_name');
+			$this->session->unset_userdata('voter_in');
+			$this->session->unset_userdata('voterlevel');
+			$this->session->unset_userdata('voterdept');
+			$this->session->unset_userdata('voter_id');
+
+			$this->session->sess_destroy();	
 		}
 
 	}

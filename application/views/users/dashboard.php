@@ -23,6 +23,7 @@
   </div>
 <div class="col-sm-4 myDeleteClass">
 	<h3>POSTS</h3>
+  <i class="alert-warning">NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast there votes.</i>
 	<div id="the-message"></div>
 <?php echo form_open('users/dashB', array("id" => "form-user")); ?>
 <div class="form-group">

@@ -94,4 +94,21 @@
 		
 		return true;
 	}
+
+	// LoginVoter
+		public function loginVoter($voterRegNo, $voterKey)
+		{
+		// Validate
+			$this->db->where('regno', $voterRegNo);
+			$this->db->where('votekey', $voterKey);
+
+			$result = $this->db->get('voters');
+
+			if ($result->num_rows() > 0) {
+				return $result->result_array();
+			} else {
+				return false;
+			}
+			
+		}
 	}
