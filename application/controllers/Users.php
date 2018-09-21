@@ -145,6 +145,7 @@
 			$data['title'] = "Candidates";
 
 			$data['candidates'] = $this->users_model->candidates();
+			$data['seats'] = $this->users_model->get_seats();
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('users/candidates', $data);
@@ -222,8 +223,10 @@
 			 } 
 			$data['title'] = 'Dashboard';
 
-			$data['candidates'] = $this->users_model->candidates();
+			$data['seats'] = $this->users_model->get_seats();
 
+			$data['votes'] = $this->vote_model->getVotes();
+			
 			$this->load->view('templates/header', $data);
 				$this->load->view('users/dashboard', $data);
 				$this->load->view('templates/footer');

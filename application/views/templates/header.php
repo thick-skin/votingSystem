@@ -193,7 +193,7 @@
 <!--VOTE MODAL ENDS HERE-->
 
 <div class="container-fluid" style="padding-left: 10vh; background-color: rgb(100, 200, 120); height:100px;">
-  <h1 style="font-family: Verdana; font-weight: bold;"><a style="text-decoration: none;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
+  <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
   <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
 

@@ -5,6 +5,7 @@ class Pages extends CI_Controller{
 			show_404();
 		}
 		$data['title'] = ucfirst($page);
+		$data['campaign'] = $this->pages_model->get_campaign();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('pages/'.$page);

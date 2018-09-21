@@ -12,46 +12,76 @@
   .arrow {
       border-left-color: red !important;
   }
+  tbody tr:hover{
+    cursor: pointer;
+    background-color: lightgrey;
+  }
+  h4.alert{
+    background-color: #fafad2;
+    font-family: cursive;
+  }
   </style>
-  <div class="jumbotron">
+<div class="col-sm-4 myDeleteClass">
+  <h4 class="alert text-center">CREATE SEAT</h4>
+  <i class="text-danger"><small>NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast there votes.</small></i>
+  <div id="the-message"></div>
+<?php echo form_open('users/dashB', array("id" => "form-user")); ?>
+<div class="form-group">
+  <input type="text" class="form-control" name="name" id="name" placeholder="Post name">
+</div>
+<button type="submit" class="btn btn-primary">Submit</button>
+</form><br>
+<?php if ($seats): ?>
+<table id="showdata" class="table table-responsive">
+  
+</table>
+  <?php else: ?>
+      <h4>You have not added any seat yet.</h4>
+  <?php endif; ?>
+
+</div>
+<div class="col-sm-4">
+  <h4 class="alert text-center">ELECTION RESULTS</h4>
+<div class="well" style="background-color: #e6e6fa;">
+  <?php if ($votes): ?>
+  <?php foreach ($seats as $seat): ?>
+  <h5 class="text-uppercase"><span class="text-primary glyphicon glyphicon-tag"></span><strong><?php echo $seat['name']; ?></strong></h5>  
+    <table class="table table-condensed">
+    <thead>
+      <tr>
+        <th>Candidate</th>
+        <th>Votes</th>
+      </tr>
+    </thead>
+    <?php foreach ($votes as $vote): ?>
+<?php if ($seat['name'] == $vote['seat']): ?>
+    <tbody>
+      <tr class="text-warning text-capitalize">
+        <td><?php echo $vote['candidate']; ?></td>
+        <td><?php echo $vote['total']; ?></td>
+      </tr>
+    </tbody>
+<?php endif; ?>
+    <?php endforeach; ?>
+  </table>
+  <?php endforeach; ?>
+  <?php else: ?>
+      <h4>No Results Yet.</h4>
+  <?php endif; ?>
+</div>
+</div>
+  <div class="col-sm-4 well">
     <form>
       <div class="form-group">
       <textarea class="form-control" placeholder="ANNOUNCEMENTS"></textarea>
       </div>
-      <button class="btn btn-lg btn-block btn-info">ANNOUNCE</button>
+      <button class="btn btn-block btn-info">ANNOUNCE</button>
     </form>
   </div>
-<div class="col-sm-4 myDeleteClass">
-	<h3>POSTS</h3>
-  <i class="alert-warning">NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast there votes.</i>
-	<div id="the-message"></div>
-<?php echo form_open('users/dashB', array("id" => "form-user")); ?>
-<div class="form-group">
-	<input type="text" class="form-control" name="name" id="name" placeholder="Post name">
-</div>
-<button type="submit" class="btn btn-primary">Submit</button>
-</form><br>
-
-<table id="showdata" class="table table-responsive">
-	
-</table>
-
-</div>
-<div class="col-sm-4">
-  Results here
-	<!--<?php// foreach ($candidates as $candidate): ?>
-		<div style="font-size: 15px; display: flex;" class="well">
-			<button type="submit" name="removeCandidate" class="btn btn-xs btn-danger" style="height: 25px; margin-right: 10px;"><span class="glyphicon glyphicon-remove"></span></button>
-			<img style="height: 50%; width: 50%;" class="img-circle" src="<?php// echo site_url(); ?>assets/img/candidates/<?php// echo $candidate['image']; ?>"> 
-			<div style="margin-left: 10px;"><p>@<?php// echo $candidate['uname']; ?></p> <p>for <?php// echo $candidate['seat'] ?></p>
-			</div>
-		</div>
-	<?php// endforeach; ?>-->
-</div>
 <script>
     $(document).ready(function() {
-    	
-    	showSeat();
+      
+      showSeat();
     	function popOver() {
 
     	$('#showdata').on('myFunc', '.deleteSeat', function(event) {
@@ -112,7 +142,7 @@
     				var i;
     				for (i = 0; i < data.length; i++) {
     					html += '<tr style="font-weight: bold;">'+
-    								'<td style="padding: 5px 5px;">'+data[i].name+'</td>'+
+    								'<td style="padding: 5px 5px;"><a href="<?php echo base_url(); ?>users/candidates#'+data[i].name+'">'+data[i].name+'</a></td>'+
     								'<td style="padding: 5px 5px;">'+
     								'<a href="javascript:;" class="btn btn-sm btn-danger deleteSeat" data="'+data[i].name+'"><span class="glyphicon glyphicon-trash"></span></a>'+
     								'</td>'+

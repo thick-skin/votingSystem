@@ -4,6 +4,10 @@
 	margin-left: 5vh;
 	font-size: 16px;
 }
+
+button#say:hover{
+	background-color: white !important;
+}
 	.col-sm-4, h3.well{
 		position: sticky; 
 		top: 70px;
@@ -48,7 +52,7 @@
 	<h3 class="well" style="width: 100%; background-color: #fff8dc; opacity: 0.7; display: inline-flex; font-family: Book Antiqua; color: rgb(220,100,100);">Campaign Feed <p class="loader"></p></h3>
 <div class="showdata">
 
-</div>		
+</div>
 </div>
 </div>
 

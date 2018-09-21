@@ -57,13 +57,8 @@
 					}
 				}
 			}
-			// Unset user data
-			$this->session->unset_userdata('voter_name');
-			$this->session->unset_userdata('voter_in');
-			$this->session->unset_userdata('voterlevel');
-			$this->session->unset_userdata('voterdept');
-			$this->session->unset_userdata('voter_id');
-			$this->session->sess_destroy();
+				// Unset user data
+				$this->thanksForVoting();
 			}
 
 
@@ -78,7 +73,6 @@
 			$this->session->unset_userdata('voterlevel');
 			$this->session->unset_userdata('voterdept');
 			$this->session->unset_userdata('voter_id');
-
 			$this->session->sess_destroy();	
 		}
 

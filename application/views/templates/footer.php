@@ -88,8 +88,9 @@
     			async: false,
     			dataType: 'json',
     			success: function(data) {
-    				var html = '';
-    				var i;
+            var html = '';
+            if (data.length > 0) {
+            var i;
     				for (i = 0; i < data.length; i++) {
     					jQuery.nl2br = function(varTest){
 					    return varTest.replace(/(\r\n|\n\r|\r|\n)/g, "<br>");
@@ -103,7 +104,7 @@
     								'</h4>'+
     								'<p style="color: #556b2f;">'+
     								'<i>'+campaign+'</i></p>'+
-                    '<button type="button" class="btn btn-default btn-block" data-toggle="collapse" data-target="#comment-'+data[i].id+'" style="border-radius: 0; background-color: #fffacd; text-decoration:none;">'+
+                    '<button type="button" id="say" class="btn btn-default btn-block" data-toggle="collapse" data-target="#comment-'+data[i].id+'" style="border-radius: 0; background-color: #fffacd; text-decoration:none;">'+
                     'Say something.. <i class="glyphicon glyphicon-comment"></i>'+
                     '</button><br>'+
                     '<div id="comment-'+data[i].id+'" class="collapse">'+
@@ -121,7 +122,10 @@
                     '</div>';
     				}
   				$('.showdata').html(html);
-
+        }else{
+          html = '<p class="text-center">Nothing to show here.</p>'
+          $('.showdata').html(html);
+        }
     			},
     			error: function() {
     				alert('Could not get database data!');
@@ -149,13 +153,14 @@ $("#voter-login").submit(function(e) {
                       'Please note that you are now logged in.</h3>'+
                       '<strong>Read This:</strong>'+
                       '<p>Be sure of the candidates you choose before submitting.<br>'+
-                      'You will not be able to login and vote again once you click the vote button.<br>'+
+                      'You will not be able to log in and vote again once you click the vote button.<br>'+
                       'Click the <b>Continue</b> button to continue or <br>'+
                       'Click the <b>Cancel</b> button to cancel and log out.</p>'+
                       '<a class="btn btn-sm btn-success" href="<?php echo base_url(); ?>vote/index">Continue</a> '+
                       '<a class="btn btn-sm btn-danger" href="<?php echo base_url(); ?>users/logoutVoter">Cancel</a></div>';
             
           $('div.modal-body').html(html);
+          $('div#top, a.navbar-brand, a#home, a#about, a#admin, button.dropdown-toggle').remove();
            
             }else if(response.error === true) {
               console.log(response);
