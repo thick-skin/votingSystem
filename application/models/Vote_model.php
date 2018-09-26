@@ -22,19 +22,21 @@
 			//return true;
 		}
 
+		public function updateVotes()
+		{
+		
+		$this->db->set('show_results', 1);
+        $this->db->where('show_results', 0);
+        $result = $this->db->update('votes');
+
+			//$result = $this->db->update_batch('votes', $data, 'id');
+			if ($result) {
+				return true;
+			}
+		}
+
 		public function getVotes()
 		{
-			/*$this->db->where('seat', $candSeat);
-			$this->db->where('candidate', $candName);
-
-			$result = $this->db->get('votes');
-
-			if ($result->num_rows() > 0) {
-				return $result;
-			} else {
-				return false;
-			}*/
-
 		$query = $this->db->query('SELECT candidate, seat, COUNT(candidate) AS votecount FROM `votes` GROUP BY candidate ORDER BY votecount DESC');
 
 			if ($query->num_rows() > 0){
@@ -48,4 +50,23 @@
 			return $data;
 			}
 		}
+
+		public function voteReady()
+	{
+		$this->db->order_by('id');
+		$query = $this->db->get('votes');
+		return $query->result_array();
+	}
+
+	public function removeResult()
+	{
+		$this->db->set('show_results', 0);
+        $this->db->where('show_results', 1);
+        $result = $this->db->update('votes');
+
+			//$result = $this->db->update_batch('votes', $data, 'id');
+			if ($result) {
+				return true;
+			}
+	}
 	}

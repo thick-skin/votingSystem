@@ -1,8 +1,29 @@
 <?php 
 	class Vote extends CI_Controller	{
+		public function checkSm(){
+			$this->session->unset_userdata('resultReady');
+			$resultReadys = $this->vote_model->voteReady();
+			if ($resultReadys) {
+				// Create session
+					foreach ($resultReadys as $resultReady) {
+						
+						if ($resultReady['show_results'] == 1) {
+							$result_data = array(
+								'resultReady' => true
+						);
+
+					$this->session->set_userdata($result_data);
+							}	
+					}
+			}
+		}
 		
 		public function index()
 		{
+			$this->checkSm();
+			if ($this->session->userdata('resultReady')) {
+			 	redirect('vote/results');
+			 }
 			if (!$this->session->userdata('voter_in')) {
 			 	redirect('home');
 			 }
@@ -74,6 +95,43 @@
 			$this->session->unset_userdata('voterdept');
 			$this->session->unset_userdata('voter_id');
 			$this->session->sess_destroy();	
+		}
+
+		public function releaseResult()
+		{
+			$data['status'] = false;
+
+			$result = $this->vote_model->updateVotes();
+			if ($result) {
+				$data['status'] = true;
+			}
+			echo json_encode($data);
+		}
+
+
+		public function results()
+		{
+			$this->checkSm();
+			if (!$this->session->userdata('resultReady')) {
+			 	redirect('home');
+			 }
+			$data['title'] = 'Results';
+			$data['seats'] = $this->users_model->get_seats();
+			$data['candidates'] = $this->users_model->candidates();
+			$data['votes'] = $this->vote_model->getVotes();
+
+			$this->load->view('templates/header', $data);
+			$this->load->view('vote/results', $data);
+			$this->load->view('templates/footer');
+		}
+
+		public function hideResults()
+		{
+			$removeResult = $this->vote_model->removeResult();
+			if ($removeResult) {
+			$this->session->unset_userdata('resultReady');
+			redirect('users/dashboard');
+			}
 		}
 
 	}

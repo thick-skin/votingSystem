@@ -1,5 +1,23 @@
 <?php  
 	class Users extends CI_Controller	{
+		public function checkSm(){
+			$this->session->unset_userdata('resultReady');
+			$resultReadys = $this->vote_model->voteReady();
+			if ($resultReadys) {
+				// Create session
+					foreach ($resultReadys as $resultReady) {
+						
+						if ($resultReady['show_results'] == 1) {
+							$result_data = array(
+								'resultReady' => true
+						);
+
+					$this->session->set_userdata($result_data);
+							}	
+					}
+			}
+		}
+
 		public function register()
 		{
 			if (!$this->session->userdata('log_in')) {
@@ -146,6 +164,7 @@
 
 			$data['candidates'] = $this->users_model->candidates();
 			$data['seats'] = $this->users_model->get_seats();
+			$this->checkSm();
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('users/candidates', $data);
@@ -163,6 +182,7 @@
 			$this->form_validation->set_rules('password', 'Password', 'required');
 		
 			if ($this->form_validation->run() === FALSE) {
+				$this->checkSm();
 				$this->load->view('templates/header', $data);
 				$this->load->view('pages/home');
 				$this->load->view('templates/footer');
@@ -212,7 +232,7 @@
 
 			//Set message
 				$this->session->set_flashdata('user_loggedout', 'Logged out');	
-				$this->session->sess_destroy();	
+				//$this->session->sess_destroy();	
 			redirect('home');
 		}
 

@@ -18,7 +18,7 @@
   }
   h4.alert{
     background-color: #fafad2;
-    font-family: cursive;
+    font-family: Verdana;
   }
   </style>
 <div class="col-sm-4 myDeleteClass">
@@ -42,10 +42,10 @@
 </div>
 <div class="col-sm-4">
   <h4 class="alert text-center">ELECTION RESULTS</h4>
-<div class="well" style="background-color: #e6e6fa;">
+<div class="well">
   <?php if ($votes): ?>
   <?php foreach ($seats as $seat): ?>
-  <h5 class="text-uppercase"><span class="text-primary glyphicon glyphicon-tag"></span><strong><?php echo $seat['name']; ?></strong></h5>  
+  <h5 class="text-uppercase bg-info"><span class="text-primary glyphicon glyphicon-tag"></span><strong><?php echo $seat['name']; ?></strong></h5>  
     <table class="table table-condensed">
     <thead>
       <tr>
@@ -68,6 +68,26 @@
   <?php else: ?>
       <h4>No Results Yet.</h4>
   <?php endif; ?>
+  <br>
+  <div id="the-result"></div>
+  <a href="#" data-toggle="modal" data-target="#electionResult" class="btn btn-block btn-default">RELEASE RESULTS</a><br>
+  <a href="<?php echo base_url(); ?>vote/hideResults" class="btn btn-block btn-primary">HIDE RESULTS</a>
+  <div class="modal fade" id="electionResult" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" style="border-radius: 0;">
+      <div class="modal-header">
+        <h3>Are you sure you want to release results?</h3>
+      </div>
+      <div class="modal-body">
+        <h4>Note that this action cannot be undone.</h4>
+      </div>
+      <div class="modal-footer">
+      <a href="<?php echo base_url(); ?>vote/releaseResult" id="release" class="btn btn-success">Release</a>
+      <a href="#" class="btn btn-danger" data-dismiss="modal">Cancel</a>
+      </div>
+    </div>                
+  </div>              
+</div>
 </div>
 </div>
   <div class="col-sm-4 well">
@@ -82,6 +102,27 @@
     $(document).ready(function() {
       
       showSeat();
+
+      $('div a#release').click(function(e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'ajax',
+          url: $('div a#release').attr('href'),
+          async: false,
+          dataType: 'json',
+          success: function(response) {
+            if (response.status == true) {
+              $('#electionResult').modal('hide');
+              $('.alert-success').remove();
+            $('#the-result').append('<p class="alert alert-success">'+'Results released!'+'</p>');
+          }
+          },
+          error: function() {
+            alert('Could not release results!');
+          }
+        });
+      });
+
     	function popOver() {
 
     	$('#showdata').on('myFunc', '.deleteSeat', function(event) {

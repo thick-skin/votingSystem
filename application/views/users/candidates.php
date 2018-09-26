@@ -10,7 +10,7 @@
     background-color: lightgrey;
 }
 	</style>
-<button id="scrolltop" class="btn btn-info" type="button" style="border-radius: 70%; position: fixed; right: 10vh; bottom: 15vh; z-index: 20 !important;" title="To top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+<button id="scrolltop" class="btn btn-info" type="button" style="width: 40px; height: 40px; text-align: center; border-radius: 20px; position: fixed; right: 10vh; bottom: 15vh; z-index: 20 !important;" title="To top"><span class="glyphicon glyphicon-chevron-up"></span></button>
 <div class="row">
 	<div class="col-sm-3">
 		<ul class="list-group">

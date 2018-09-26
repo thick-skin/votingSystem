@@ -1,11 +1,30 @@
 <?php 
 class Pages extends CI_Controller{
+	public function checkSm(){
+			$this->session->unset_userdata('resultReady');
+			$resultReadys = $this->vote_model->voteReady();
+			if ($resultReadys) {
+				// Create session
+					foreach ($resultReadys as $resultReady) {
+						
+						if ($resultReady['show_results'] == 1) {
+							$result_data = array(
+								'resultReady' => true
+						);
+
+					$this->session->set_userdata($result_data);
+							}	
+					}
+			}
+		}
+
 	public function view($page = 'home'){
 		if (!file_exists(APPPATH.'views/pages/'.$page.'.php')) {
 			show_404();
 		}
 		$data['title'] = ucfirst($page);
 		$data['campaign'] = $this->pages_model->get_campaign();
+		$this->checkSm();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('pages/'.$page);

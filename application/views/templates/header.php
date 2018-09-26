@@ -15,7 +15,16 @@
     top: 0;
     width: 100%;
     z-index: 9999 !important;
+    background-color: #2f4f4f !important;
   }
+
+.nav-wrapper
+{
+    min-height:62px; /*account for 20px margin-bottom on .nav */
+    height: 100%;
+}
+
+
   .navbar-default {z-index: 1000 !important;}
 
   .affix + .container-fluid {
@@ -135,7 +144,12 @@
   <?php if (!$this->session->userdata('log_in')) : ?>
   <?php if (!$this->session->userdata('voter_in')): ?>
   <a href="#" id="admin" data-toggle="modal" data-target="#myadmin">Admin<span style="float: right;" class="glyphicon glyphicon-log-in"></span></a>
+  <?php if (!$this->session->userdata('resultReady')): ?>
    <a href="#" id="votes" data-toggle="modal" data-target="#myvote">Vote<span style="float: right;" class="glyphicon glyphicon-check"></span></a>
+ <?php endif; ?>
+ <?php if ($this->session->userdata('resultReady')): ?>
+   <a href="<?php echo base_url(); ?>vote/results" id="votes">Results<span style="float: right;" class="glyphicon glyphicon-check"></span></a>
+ <?php endif; ?>
   <?php endif ?>
   <?php if ($this->session->userdata('voter_in')): ?>
    <a href="<?php echo base_url(); ?>vote/index" id="votes">Vote<span style="float: right;" class="glyphicon glyphicon-check"></span></a>
@@ -170,7 +184,7 @@
 <!--ADMIN MODAL ENDS HERE-->
 
 <!--VOTE MODAL STARTS-->
-<div class="modal fade" id="myvote" role="dialog">
+<div style="background: url(<?php echo site_url(); ?>assets/img/votesmart.jpg); background-size: cover;" class="modal fade" id="myvote" role="dialog">
   <div id="modd" class="modal-dialog" style="top: 30vh; z-index: 9999 !important;">
 
     <div class="modal-content" style="background: transparent;">
@@ -192,12 +206,12 @@
 </div>
 <!--VOTE MODAL ENDS HERE-->
 
-<div class="container-fluid" style="padding-left: 10vh; background-color: rgb(100, 200, 120); height:100px;">
-  <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
+<div class="container-fluid" style="padding-left: 10vh; background-color: #696969; height:100px;">
+  <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none; color:#000080;text-shadow: 1px 1px 1px white;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
   <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
-
-<nav class="navbar navbar-default" data-spy="affix" data-offset-top="110" style="border-radius: 0%; border:none; background-color: rgb(100, 200, 120);">
+<div class="nav-wrapper">
+<nav class="navbar navbar-default" data-spy="affix" data-offset-top="110" style="border-radius: 0%; border:none; background-color: #696969;">
 	<div class="container-fluid">
     <div class="navbar-header">
       <?php if ($this->session->userdata('log_in') || $this->session->userdata('voter_in')) : ?>
@@ -215,18 +229,19 @@
      <?php if ($this->session->userdata('log_in')) : ?>
     <ul class="nav navbar-nav navbar-right">
       <li><a style="font-weight: bolder; color: white;" href="#"><?php echo ucfirst($this->session->userdata('usernme')); ?></a></li>
-      <li><a href="<?php echo base_url(); ?>users/logout">Logout</a></li>
+      <li><a style="color: white;" href="<?php echo base_url(); ?>users/logout">Logout</a></li>
     </ul>
   <?php endif; ?>
   <?php if ($this->session->userdata('voter_in')) : ?>
     <ul class="nav navbar-nav navbar-right">
       <li><a style="font-weight: bolder; color: white;" href="#"><?php echo ucfirst($this->session->userdata('voter_name')); ?></a></li>
-      <li><a href="<?php echo base_url(); ?>users/logoutVoter">Logout</a></li>
+      <li><a style="color: white;" href="<?php echo base_url(); ?>users/logoutVoter">Logout</a></li>
     </ul>
   <?php endif; ?>
   </div>
 	 </div>
 </nav>
+</div>
 <?php if (!$this->session->userdata('log_in') && !$this->session->userdata('voter_in')) : ?>
 <div class="dropup" style="position: fixed; bottom: 10vh; right: 55vh; z-index: 20 !important;">
 <button class="btn btn-primary dropdown-toggle" type="button" style="border-radius: 30%; position: fixed; right: 5vh; box-shadow: 0 0 5px grey;" title="Post campaign"><span class="glyphicon glyphicon-share"></span></button>

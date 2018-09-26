@@ -98,11 +98,11 @@
     					var campaign = $.nl2br(data[i].campaign);
     					
     					html += '<div id="campaignFeed" class="well" style="background-color: #fffacd; border-radius: 0%;">'+
-    								'<h4>@ <b>'+data[i].username+'</b> <sub style="float: right;">'+data[i].created_date+'</sub><br>'+
+    								'<h4>@ <b>'+data[i].username+'</b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
     								'<small>Running for: '+data[i].user_seat+
     								'</small>'+
     								'</h4>'+
-    								'<p style="color: #556b2f;">'+
+    								'<p style="color: #556b2f; border: 1px solid white;">'+
     								'<i>'+campaign+'</i></p>'+
                     '<button type="button" id="say" class="btn btn-default btn-block" data-toggle="collapse" data-target="#comment-'+data[i].id+'" style="border-radius: 0; background-color: #fffacd; text-decoration:none;">'+
                     'Say something.. <i class="glyphicon glyphicon-comment"></i>'+
