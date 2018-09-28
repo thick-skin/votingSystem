@@ -2,6 +2,13 @@
 	</body>
 	<script>
 	$(document).ready(function() {
+
+      $('#flashdata').delay(500).show(10, function() {
+              $(this).delay(2000).hide(10, function() {
+              $(this).remove();
+              });
+            });
+
 	$("#small").fadeIn(2000);
 	$("h1").hover(function() {
 		$("#small").fadeToggle();

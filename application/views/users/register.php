@@ -1,6 +1,6 @@
 
 <div class="row">
-	<div class="col-sm-8">
+	<div class="col-sm-12">
 
 <ul class="nav nav-tabs nav-tabs-justified" style="background-color: lightgrey; font-weight: bolder;">
     <li><a data-toggle="tab" href="#regv">Register as Voter</a></li>

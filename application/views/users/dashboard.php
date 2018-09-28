@@ -20,29 +20,38 @@
     background-color: #fafad2;
     font-family: Verdana;
   }
+  i.text-danger:hover{
+    font-size: 20px;
+  }
+  body#vote{
+    background: url(<?php echo base_url(); ?>assets/img/dash.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
   </style>
+  <div class="row">
 <div class="col-sm-4 myDeleteClass">
   <h4 class="alert text-center">CREATE SEAT</h4>
+  <div class="well">
   <i class="text-danger"><small>NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast there votes.</small></i>
   <div id="the-message"></div>
 <?php echo form_open('users/dashB', array("id" => "form-user")); ?>
 <div class="form-group">
   <input type="text" class="form-control" name="name" id="name" placeholder="Post name">
 </div>
-<button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" class="btn btn-sm btn-primary">Submit</button>
 </form><br>
-<?php if ($seats): ?>
+<div class="pre-scrollable" style="height: 30vh;">
 <table id="showdata" class="table table-responsive">
   
 </table>
-  <?php else: ?>
-      <h4>You have not added any seat yet.</h4>
-  <?php endif; ?>
+  </div>
 
+</div>
 </div>
 <div class="col-sm-4">
   <h4 class="alert text-center">ELECTION RESULTS</h4>
-<div class="well">
+<div class="well pre-scrollable">
   <?php if ($votes): ?>
   <?php foreach ($seats as $seat): ?>
   <h5 class="text-uppercase bg-info"><span class="text-primary glyphicon glyphicon-tag"></span><strong><?php echo $seat['name']; ?></strong></h5>  
@@ -71,7 +80,7 @@
   <br>
   <div id="the-result"></div>
   <a href="#" data-toggle="modal" data-target="#electionResult" class="btn btn-block btn-default">RELEASE RESULTS</a><br>
-  <a href="<?php echo base_url(); ?>vote/hideResults" class="btn btn-block btn-primary">HIDE RESULTS</a>
+  <a href="<?php echo base_url(); ?>vote/hideResults" class="btn btn-block btn-primary">HIDE RESULTS</a><br>
   <div class="modal fade" id="electionResult" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content" style="border-radius: 0;">
@@ -98,6 +107,7 @@
       <button class="btn btn-block btn-info">ANNOUNCE</button>
     </form>
   </div>
+</div><br><br>
 <script>
     $(document).ready(function() {
       
@@ -180,6 +190,7 @@
     			dataType: 'json',
     			success: function(data) {
     				var html = '';
+            if (data.length > 0) {
     				var i;
     				for (i = 0; i < data.length; i++) {
     					html += '<tr style="font-weight: bold;">'+
@@ -191,6 +202,10 @@
     				}
     				$('#showdata').html(html);
     				popOver();
+            }else{
+          html = '<p class="text-center">Nothing to show here.</p>'
+          $('.showdata').html(html);
+        }
     			},
     			error: function() {
     				alert('Could not get database data!');

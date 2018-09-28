@@ -265,7 +265,11 @@
 		{
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('name', 'Name', 'required');
+			$this->form_validation->set_rules('name', 'Name', 'required|is_unique[seats.name]',
+				array(
+                'is_unique'     => 'This Seat %s already exists.'
+        )
+		);
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if($this->form_validation->run() === FALSE){

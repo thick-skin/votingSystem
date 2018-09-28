@@ -134,6 +134,12 @@
 			}
 		}
 
+		public function voteDetails()
+		{
+			$detail = $this->vote_model->voteDetails();
+			echo json_encode($detail);
+		}
+
 	}
 			/*	if (isset($_POST[$seat['name']])) {
 					$data['status'] = true;

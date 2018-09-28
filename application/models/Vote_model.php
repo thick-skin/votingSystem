@@ -51,6 +51,28 @@
 			}
 		}
 
+		public function voteDetails()
+		{
+			$candidate = $this->input->get('candidate');
+
+			$this->db->where('candidate', $candidate);
+			$query = $this->db->query('SELECT dept, seat, COUNT(dept) AS votecount FROM `votes` WHERE candidate="'.$candidate.'" GROUP BY dept ORDER BY votecount DESC');
+
+			//$query = $this->db->get('candidates');
+			if ($query->num_rows() > 0) {
+				foreach ($query->result() as $row) 
+			        $data[] = array(
+			            'total' => $row->votecount,
+			            'dept' => $row->dept
+			            //'seat' => $row->seat
+			        );
+
+			return $data;
+			}else{
+				return false;
+			}
+		}
+
 		public function voteReady()
 	{
 		$this->db->order_by('id');

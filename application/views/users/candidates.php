@@ -22,7 +22,7 @@
 	</div>
 	<div class="col-sm-9">
 		<?php foreach ($seats as $seat): ?>
-		<div style="padding-top: 100px;" id="<?php echo $seat['name']; ?>">
+		<div style="padding-top: 40px;" id="<?php echo $seat['name']; ?>">
 		<h3 class="alert alert-info"><?php echo $seat['name']; ?></h3>
 
 <?php foreach ($candidates as $candidate): ?>
@@ -35,7 +35,7 @@
   <div id="modd" class="modal-dialog">
     <div class="modal-content" style="background: transparent;">
         <button style="font-size: 30px;" type="button" class="close" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></button>
-        <img class="img-thumbnail" style="height:100%; width:100%;" src="<?php echo site_url(); ?>assets/img/candidates/<?php echo $candidate['image']; ?>">
+        <img style="height:100%; width:100%;" src="<?php echo site_url(); ?>assets/img/candidates/<?php echo $candidate['image']; ?>">
     </div>                
   </div>              
 </div>

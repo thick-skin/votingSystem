@@ -7,6 +7,7 @@
   	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
   	<script src="<?php echo base_url(); ?>assets/jqueryfile/jquery-3.3.1.min.js"></script>
   	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
  <style>
  #vote input {border-radius: 0%;}
@@ -184,16 +185,16 @@
 <!--ADMIN MODAL ENDS HERE-->
 
 <!--VOTE MODAL STARTS-->
-<div style="background: url(<?php echo site_url(); ?>assets/img/votesmart.jpg); background-size: cover;" class="modal fade" id="myvote" role="dialog">
+<div style="background: url(<?php echo site_url(); ?>assets/img/votesmart.jpg);" class="modal fade" id="myvote" role="dialog">
   <div id="modd" class="modal-dialog" style="top: 30vh; z-index: 9999 !important;">
 
-    <div class="modal-content" style="background: transparent;">
+    <div class="modal-content">
       <div class="modal-body">
         <button style="color: red;" type="button" class="close" data-dismiss="modal">&times;</button>
         <?php echo form_open('users/loginVoter', array("id" => "voter-login")); ?>
         <div id="votermessage"></div>
           <div id="vote-err" class="form-group">
-            <input type="text" class="form-control" name="voterRegNo" id="voterRegNo" placeholder="Registration Number">
+            <input type="text" class="form-control" name="voterRegNo" id="voterRegNo" placeholder="Registration Number" autofocus="autofocus">
           </div>
           <div id="vote-err" class="form-group">
             <input type="text" class="form-control" name="voterKey" id="voterKey" placeholder="Vote Key">
@@ -206,8 +207,8 @@
 </div>
 <!--VOTE MODAL ENDS HERE-->
 
-<div class="container-fluid" style="padding-left: 10vh; background-color: #696969; height:100px;">
-  <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none; color:#000080;text-shadow: 1px 1px 1px white;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
+<div id="navDiv" class="container-fluid" style="padding-left: 10vh; background-color: #696969; height:100px;">
+  <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none; color:#2f4f4f;text-shadow: 1px 1px 1px white;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
   <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
 <div class="nav-wrapper">
@@ -267,11 +268,11 @@
 
 <div id="top" class="container-fluid" style="height:100%; margin-left: 40px">
   <?php if ($this->session->flashdata('user_loggedin')) {
-      echo '<p style="color: green;">'.$this->session->flashdata('user_loggedin').', '.$this->session->userdata('usernme').'</p>';
+      echo '<p class="alert alert-success" id="flashdata">'.$this->session->flashdata('user_loggedin').', '.$this->session->userdata('usernme').'</p>';
     } ?>
     <?php if ($this->session->flashdata('login_failed')) {
-      echo '<p style="color: red;">'.$this->session->flashdata('login_failed').'</p>';
+      echo '<p style="color: red;" id="flashdata">'.$this->session->flashdata('login_failed').'</p>';
     } ?>
     <?php if ($this->session->flashdata('user_loggedout')) {
-      echo '<p style="color: blue;">'.$this->session->flashdata('user_loggedout').'</p>';
+      echo '<p class="alert alert-info" id="flashdata">'.$this->session->flashdata('user_loggedout').'</p>';
     } ?>
