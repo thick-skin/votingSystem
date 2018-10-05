@@ -39,6 +39,36 @@ class Pages extends CI_Controller{
 			
 		}
 
+	public function addComment()
+	{
+		$data = array('success' => false, 'messages' => array());
+		$camp_id = $this->input->post('campaignid');
+		$name = $this->input->post('commentName-'.$camp_id);
+		$comment = $this->input->post('commentBody-'.$camp_id);
+
+			$this->form_validation->set_rules('commentName-'.$camp_id, 'Name', 'required');
+			$this->form_validation->set_rules('commentBody-'.$camp_id, 'Comment', 'required');
+			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
+
+			if($this->form_validation->run() === FALSE){
+				foreach ($_POST as $key => $value) {
+					$data['messages'][$key] = form_error($key);
+				}
+			}else{
+				$this->pages_model->addComment($camp_id, $name, $comment);
+				$data['success'] = true;
+			}
+			echo json_encode($data);
+	}
+
+	public function showComments()
+		{
+			$comment = $this->pages_model->get_comments();
+
+			echo json_encode($comment);
+			
+		}	
+
 	public function create_campaign()
 	{
 		$data = array('success' => false, 'messages' => array());

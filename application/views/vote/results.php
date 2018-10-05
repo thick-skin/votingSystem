@@ -13,7 +13,17 @@
     color: #daa520;
   }
 </style>
-<div class="well">
+<div class="form-group" style="display: inline-flex;">
+    <label>Election Year</label>
+    <select name="eYear" id="eYear" class="form-control">
+     
+      <?php $year = date("Y"); for ($i=$year; $i > 2017; $i--): ?>  
+          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+      <?php endfor; ?>
+        
+    </select>
+  </div>
+<div class="well col-sm-offset-1 col-sm-10">
   <span class="glyphicon glyphicon-print pull-right"></span><br>
   <?php if ($votes): ?>
   <?php foreach ($seats as $seat): ?>

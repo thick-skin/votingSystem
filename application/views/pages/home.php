@@ -1,19 +1,25 @@
 <style>
-#campaignFeed blockquote{
+ .campaignFeed{
+		box-shadow: 0 5px 0 #2f4f4f;
+		background-color: white; 
+		border-radius: 0%;
+	}
+.campaignFeed p#campaign{
+	padding: 15px 15px;
+	border-radius: 50px;
 	background-color: #fffafa;
-	margin-left: 5vh;
-	font-size: 16px;
+	margin-left: 1vh;
 }
 
 button#say:hover{
-	background-color: white !important;
+	background-color: grey !important;
 }
 	.col-sm-4, h3.well{
 		position: sticky; 
 		top: 70px;
 	}
-	#ads, blockquote{
-		box-shadow: 2px 2px 2px grey;
+	#ads, p#campaign{
+		box-shadow: 2px 0 2px 0 grey;
 	}
 	@media screen and (max-height: 560px) {
 		.col-sm-4{position: initial;}
@@ -42,6 +48,8 @@ button#say:hover{
 <div class="row">
 <div class="col-sm-4">
 <div id="ads" class="well" style="width: 95%; height: 89vh;">
+	The Admin reserves the right to take down any campaign that does not adhere to the rules.<br><br>
+	Candidates may be disqualified without warning if implicating info is found against him or her.<br><br>
 	Details about election start and ending dates will appear here. <br><br>
 	Any other useful info here. <br><br>
 	Candidates reminded to register. <br><br>
@@ -49,7 +57,7 @@ button#say:hover{
 </div>	
 </div>
 <div class="col-sm-6">
-	<h3 class="well" style="width: 100%; background-color: #fff8dc; opacity: 0.7; display: inline-flex; font-family: Book Antiqua; color: rgb(220,100,100);">Campaign Feed <p class="loader"></p></h3>
+	<h3 class="well" style="width: 100%; background-color: white; opacity: 0.7; display: inline-flex; font-family: Book Antiqua; color: rgb(220,100,100);">Campaign Feed <p class="loader"></p></h3>
 <div class="showdata">
 
 </div>

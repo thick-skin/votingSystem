@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
  <style>
- #vote input {border-radius: 0%;}
+ #vote input {/*border-radius: 0%;*/}
   /* Note: Try to remove the following lines to see the effect of CSS positioning */
   .affix {
     top: 0;
@@ -212,7 +212,7 @@
   <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
 <div class="nav-wrapper">
-<nav class="navbar navbar-default" data-spy="affix" data-offset-top="110" style="border-radius: 0%; border:none; background-color: #696969;">
+<nav class="navbar navbar-default" data-spy="affix" data-offset-top="100" style="border-radius: 0%; border:none; background-color: #696969;">
 	<div class="container-fluid">
     <div class="navbar-header">
       <?php if ($this->session->userdata('log_in') || $this->session->userdata('voter_in')) : ?>
@@ -257,7 +257,7 @@
             <input type="text" class="form-control" name="pass" id="pass" placeholder="Password">
           </div>
           <div class="form-group">
-            <textarea class="form-control" name="campaign" id="campaign" maxlength="300" size="300" placeholder="Campaign "></textarea><br>
+            <textarea class="form-control" name="campaign" id="campaign" maxlength="300" size="300" placeholder="Campaign (Max characters-300)"></textarea><br>
             <!--input type="file" name="userfile" size="20"-->
           </div>
           <button type="submit" class="btn btn-block" style="color: grey; font-weight: bold; background: transparent; border: 2px solid grey;">Post campaign</button>

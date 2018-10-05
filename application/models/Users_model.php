@@ -64,7 +64,7 @@
 
 		public function get_seats()
 	{
-		$this->db->order_by('id');
+		$this->db->order_by('id', 'DESC');
 		$query = $this->db->get('seats');
 		return $query->result_array();
 	}

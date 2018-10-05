@@ -55,7 +55,7 @@
 		{
 			$candidate = $this->input->get('candidate');
 
-			$this->db->where('candidate', $candidate);
+			//$this->db->where('candidate', $candidate);
 			$query = $this->db->query('SELECT dept, seat, COUNT(dept) AS votecount FROM `votes` WHERE candidate="'.$candidate.'" GROUP BY dept ORDER BY votecount DESC');
 
 			//$query = $this->db->get('candidates');

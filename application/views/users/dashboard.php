@@ -33,7 +33,7 @@
 <div class="col-sm-4 myDeleteClass">
   <h4 class="alert text-center">CREATE SEAT</h4>
   <div class="well">
-  <i class="text-danger"><small>NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast there votes.</small></i>
+  <i class="text-danger"><small>NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast their votes.</small></i>
   <div id="the-message"></div>
 <?php echo form_open('users/dashB', array("id" => "form-user")); ?>
 <div class="form-group">
