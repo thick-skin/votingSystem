@@ -2,6 +2,7 @@
   </body>
   <script>
    $(document).ready(function() {
+    var candidate = $('input#candidate').attr('value');
     var offset = 0;
     var html = '';
     var limit;
@@ -64,6 +65,23 @@ showAllComments(camp_id);
     e.preventDefault();
 
     var me = $(this);
+    var campaignNameValue = $('input#user').val();
+    candidate = $('input#candidate').attr('value');
+    campaignNameValue = campaignNameValue.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+    return letter.toUpperCase();
+    });
+    //alert(campaignNameValue);
+
+
+    function scrollUPP() {
+      if (candidate == 'Home') {
+            showFirstCampaign();
+            jQuery('html,body').animate({scrollTop:0},0);
+          }else if (candidate == campaignNameValue) {
+            showFirstCampaign();
+            jQuery('html,body').animate({scrollTop:0},0);
+          }
+    }
 
       //perform ajax
       $.ajax({
@@ -81,9 +99,8 @@ showAllComments(camp_id);
 
             // reset the form
             me[0].reset();
-            showFirstCampaign();
-            jQuery('html,body').animate({scrollTop:0},0);
 
+            scrollUPP();
             // close the message after seconds
             $('.alert-success').delay(500).show(10, function() {
               $(this).delay(2000).hide(10, function() {
@@ -130,6 +147,7 @@ function showFirstCampaign() {
   $.ajax({
         type: 'ajax',
         method: 'get',
+        data: {candidate: candidate},
         url: '<?php echo base_url(); ?>pages/showFirstCampaign',
         async: false,
         dataType: 'json',
@@ -145,7 +163,7 @@ function showFirstCampaign() {
              username = data[i].username;
 
              htm += '<div id="campaignFeed-'+camp_id+'" class="well campaignFeed">'+
-             '<h4>@ <b>'+username+'</b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
+             '<h4>@ <b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
              '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates#'+user_seat+'">'+user_seat+
              '</a></small>'+
              '</h4>'+
@@ -192,6 +210,8 @@ function showFirstCampaign() {
       offset = 0;
       $.ajax({
         type: 'ajax',
+        method: 'get',
+        data: {candidate: candidate},
         url: '<?php echo base_url(); ?>pages/showCampaign',
         async: false,
         dataType: 'json',
@@ -208,7 +228,7 @@ function showFirstCampaign() {
              username = data[i].username;
 
              html += '<div id="campaignFeed-'+camp_id+'" class="well campaignFeed">'+
-             '<h4>@ <b>'+username+'</b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
+             '<h4>@ <b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
              '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates#'+user_seat+'">'+user_seat+
              '</a></small>'+
              '</h4>'+
@@ -233,7 +253,7 @@ function showFirstCampaign() {
              '</div>';
            }
         $('div.showdata').html(html);
-        $('div#load-more').html('<button type="button" class="btn btn-sm btn-primary load-more">Load more...</button>');
+        $('div#load-more').html('<button type="button" class="btn btn-sm btn-primary load-more">Scroll down to load more...</button>');
         for (i = 0; i < data.length; i++) {
           camp_id = data[i].id;
           showComments(camp_id);
@@ -262,7 +282,7 @@ $(window).scroll(function() {
         type: 'ajax',
         method: 'get',
         url: '<?php echo base_url(); ?>pages/showMoreCampaign',
-        data: {offset: offset},
+        data: {offset: offset, candidate: candidate},
         async: false,
         dataType: 'json',
         success: function(data) {
@@ -278,7 +298,7 @@ $(window).scroll(function() {
              username = data[i].username;
 
              html += '<div id="campaignFeed-'+camp_id+'" class="well campaignFeed">'+
-             '<h4>@ <b>'+username+'</b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
+             '<h4>@ <b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
              '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates#'+user_seat+'">'+user_seat+
              '</a></small>'+
              '</h4>'+
@@ -303,7 +323,7 @@ $(window).scroll(function() {
              '</div>';
            }
         $('.showdata').append(html);
-        $('div#load-more').html('<button type="button" class="btn btn-sm btn-primary load-more">Load more...</button>');
+        $('div#load-more').html('<button type="button" class="btn btn-sm btn-primary load-more">Scroll down to load more...</button>');
         for (i = 0; i < data.length; i++) {
           camp_id = data[i].id;
           showComments(camp_id);
@@ -312,7 +332,7 @@ $(window).scroll(function() {
         }
         }else{
         //  html = '<p class="text-center">Nothing to show here.</p>';
-        $('div#load-more').html('<button type="button" class="btn btn-sm btn-primary load-more">Nothing to load.</button>');
+        $('div#load-more').html('<button type="button" class="btn btn-sm btn-primary load-more">Nothing more to load.</button>');
         }
         //html = '';
         },
@@ -344,8 +364,8 @@ $(window).scroll(function() {
             };            var comment = $.nl2br(data[i].comment_body);
 
             html += '<p id="campaign">'+
-            '<b>'+data[i].name+' <sub>'+data[i].comment_time+'</sub></b><br>'+
-            '<small>'+comment+'</small>'+
+            '<small><b>'+data[i].name+' <i>'+data[i].comment_time+'</i></b></small><br>'+
+            comment+
             '</p>';
           }
                                 //$('div#comments').html(html);

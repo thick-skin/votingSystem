@@ -22,6 +22,7 @@ class Pages extends CI_Controller{
 		if (!file_exists(APPPATH.'views/pages/'.$page.'.php')) {
 			show_404();
 		}
+		$data['candidateSet'] = false;
 		$data['title'] = ucfirst($page);
 		//$data['campaign'] = $this->pages_model->get_campaign();
 		$this->checkSm();
@@ -33,25 +34,62 @@ class Pages extends CI_Controller{
 
 	public function showCampaign()
 		{
+			$candidate = $this->input->get('candidate');
+			if ($candidate == 'Home') {
 			$campaign = $this->pages_model->get_campaign();
 
 			echo json_encode($campaign);
-			
+			}else{
+				$campaign = $this->pages_model->get_CampaignWhere($candidate);
+
+			echo json_encode($campaign);
+			}
 		}
 
 	public function showMoreCampaign()
 		{
+			$candidate = $this->input->get('candidate');
+			if ($candidate == 'Home') {
 			$campaign = $this->pages_model->get_MoreCampaign();
 
 			echo json_encode($campaign);
+			}else{
+				
+				$campaign = $this->pages_model->get_MoreCampaignWhere($candidate);
+
+			echo json_encode($campaign);
+			}
 			
 		}
 
 	public function showFirstCampaign()
 	{
-		$campaign = $this->pages_model->showFirstCampaign();
+		$candidate = $this->input->get('candidate');
+			if ($candidate == 'Home') {
+			$campaign = $this->pages_model->showFirstCampaign();
 
-		echo json_encode($campaign);
+			echo json_encode($campaign);
+			}else{
+				
+				$campaign = $this->pages_model->get_FirstCampaignWhere($candidate);
+
+			echo json_encode($campaign);
+			}
+	}
+
+	public function candidatePersonal()
+	{
+		$this->checkSm();
+		
+		$data['candidateSet'] = true;
+		$candidate = $this->uri->segment(3);
+		$data['title'] = ucfirst($candidate);
+
+		$data['candidate1'] = $this->pages_model->candidate($candidate);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('pages/home', $data);
+		$this->load->view('templates/footer');
 	}
 
 	public function addComment()

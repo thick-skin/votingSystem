@@ -23,6 +23,31 @@
 		return $query->result_array();
 	}
 
+	public function candidate($candidate)
+	{
+		$query = $this->db->query('SELECT * FROM `candidates` WHERE uname = "'.$candidate.'"');
+		return $query->result_array();
+	}
+
+	public function get_CampaignWhere($candidate)
+	{
+		$query = $this->db->query('SELECT * FROM `campaign` WHERE username = "'.$candidate.'" ORDER BY id DESC LIMIT 2');
+		return $query->result_array();
+	}
+
+	public function get_MoreCampaignWhere($candidate)
+	{
+		$offset = $this->input->get('offset');
+		$query = $this->db->query('SELECT * FROM `campaign` WHERE username = "'.$candidate.'" ORDER BY id DESC LIMIT '.$offset.', 2');
+		return $query->result_array();
+	}
+
+	public function get_FirstCampaignWhere($candidate)
+	{
+		$query = $this->db->query('SELECT * FROM `campaign` WHERE username = "'.$candidate.'" ORDER BY id DESC LIMIT 1');
+		return $query->result_array();
+	}
+
 		public function addComment($camp_id, $name, $comment)
 		{
 			$data = array(
