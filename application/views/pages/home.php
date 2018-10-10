@@ -57,17 +57,22 @@ button#say:hover{
 </div>	
 </div>
 <div class="col-sm-6">
-	<h3 class="well" style="width: 100%; background-color: white; opacity: 0.7; display: inline-flex; font-family: Book Antiqua; color: rgb(220,100,100);">Campaign Feed <p class="loader"></p></h3>
+	<h3 class="well" style="width: 100%; background-color: white; opacity: 0.7; font-family: Book Antiqua; color: rgb(220,100,100);">Campaign Feed<i class="fa fa-spinner fa-spin pull-right" style="font-size:24px"></i></h3>
 <div class="showdata">
 
 </div>
+<div id="load-more" style="display: inline-flex;"><p>Loading campaign...<p class="loader"></p></p></div>
 </div>
-</div>
+</div><br><br>
 
 <script>
 	$(document).ready(function () {
 		
-
+/*$(window).scroll(function() {
+   if($(window).scrollTop() + $(window).height() == $(document).height()) {
+       alert("bottom!");
+   }
+});*/
       
 	});
 </script>

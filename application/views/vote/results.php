@@ -13,16 +13,21 @@
     color: #daa520;
   }
 </style>
-<div class="form-group" style="display: inline-flex;">
+<div class="row">
+<div class="form-group col-sm-2" style="display: inline-flex;">
     <label>Election Year</label>
     <select name="eYear" id="eYear" class="form-control">
      
-      <?php $year = date("Y"); for ($i=$year; $i > 2017; $i--): ?>  
-          <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
+      <?php $year = 2023; for ($i=$year; $i > 2017; $i--): ?>  
+      <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
       <?php endfor; ?>
         
     </select>
   </div>
+<div class="col-sm-10" style="display: inline-flex;">
+  <h3>Showing results for the year</h3> <h3 id="year">: <?php echo 2023; ?></h3>
+</div>
+</div>
 <div class="well col-sm-offset-1 col-sm-10">
   <span class="glyphicon glyphicon-print pull-right"></span><br>
   <?php if ($votes): ?>
@@ -71,6 +76,14 @@
 </div>
 <script>
   $(document).ready(function () {
+
+    $('option').click(function (e) {
+      e.preventDefault();
+      var value = $(this).attr('value');
+      //alert(value);
+      $('h3#year').text(':  '+value);
+      //$('')
+    });
               
     $('table tr:nth-child(1) td:nth-child(3)').html('<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>');
 

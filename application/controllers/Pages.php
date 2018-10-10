@@ -23,7 +23,7 @@ class Pages extends CI_Controller{
 			show_404();
 		}
 		$data['title'] = ucfirst($page);
-		$data['campaign'] = $this->pages_model->get_campaign();
+		//$data['campaign'] = $this->pages_model->get_campaign();
 		$this->checkSm();
 
 		$this->load->view('templates/header', $data);
@@ -38,6 +38,21 @@ class Pages extends CI_Controller{
 			echo json_encode($campaign);
 			
 		}
+
+	public function showMoreCampaign()
+		{
+			$campaign = $this->pages_model->get_MoreCampaign();
+
+			echo json_encode($campaign);
+			
+		}
+
+	public function showFirstCampaign()
+	{
+		$campaign = $this->pages_model->showFirstCampaign();
+
+		echo json_encode($campaign);
+	}
 
 	public function addComment()
 	{

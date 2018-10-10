@@ -6,8 +6,20 @@
 
 		public function get_campaign()
 	{
-		$this->db->order_by('campaign.id', 'DESC');
-		$query = $this->db->get('campaign');
+		$query = $this->db->query('SELECT * FROM `campaign` ORDER BY id DESC LIMIT 2');
+		return $query->result_array();
+	}
+
+	public function get_MoreCampaign()
+	{
+		$offset = $this->input->get('offset');
+		$query = $this->db->query('SELECT * FROM `campaign` ORDER BY id DESC LIMIT '.$offset.', 2');
+		return $query->result_array();
+	}
+
+	public function showFirstCampaign()
+	{
+		$query = $this->db->query('SELECT * FROM `campaign` ORDER BY id DESC LIMIT 1');
 		return $query->result_array();
 	}
 
@@ -25,29 +37,11 @@
 		public function get_comments()
 	{
 		$camp_id = $this->input->get('camp_id');
+		$limit = $this->input->get('limit');
 
-			//$this->db->where('candidate', $candidate);
-			$query = $this->db->query('SELECT id, name, comment_body, comment_time, campaign_id FROM `campaign_comments` WHERE campaign_id="'.$camp_id.'" ORDER BY id DESC LIMIT 2');
+		$query = $this->db->query('SELECT id, name, comment_body, comment_time, campaign_id FROM `campaign_comments` WHERE campaign_id="'.$camp_id.'" ORDER BY id DESC LIMIT '.$limit.'');
 
-			//$query = $this->db->get('candidates');
-			if ($query->num_rows() > 0) {
-				foreach ($query->result() as $row) 
-			        $data[] = array(
-			            'name' => $row->name,
-			            'comment_body' => $row->comment_body,
-			            'campaign_id' => $row->campaign_id,
-			            'comment_time' => $row->comment_time
-
-			        );
-
-			return $data;
-			}else{
-				return false;
-			}
-/*
-		$this->db->order_by('campaign_comments.id', 'DESC');
-		$query = $this->db->get('campaign_comments');
-		return $query->result_array();*/
+			return $query->result_array();
 	}
 
 	// Check if candidate exists
