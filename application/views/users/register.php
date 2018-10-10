@@ -96,7 +96,7 @@
   			</div>
   			</div>
 		<div id="err" class="form-group">
-			 <input class="form-control" type="text" name="uname" id="uname" placeholder="Username(Capital letters first. Join multiple words with _)">
+			 <input class="form-control" type="text" name="uname" id="uname" placeholder="Username(Capital letters first. Join multiple words with Underscore)">
        	
 		</div>
 		<div id="err" class="form-group">

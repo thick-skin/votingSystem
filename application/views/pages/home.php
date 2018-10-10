@@ -62,8 +62,8 @@ button#say:hover{
 	<?php if ($candidateSet == true): ?>
 		<?php foreach ($candidate1 as $candidate): ?>
 			
-		<div id="profile-picture"><img class="img-thumbnail" style="height:50vh; width: 50vh;" src="<?php echo site_url(); ?>assets/img/candidates/<?php echo $candidate['image']; ?>"></div>
-		<div id="profile-details"><h4 style="font-weight: bold; background-color: lightgrey; padding: 7px 7px;">@ <?php echo $candidate['uname'] ?><br><small><?php echo $candidate['first_name'] ?> <?php echo $candidate['last_name'] ?> <?php echo $candidate['other_name'] ?></small></h4>
+		<div id="profile-picture"><img class="img-thumbnail" style="height:40vh; width: 50vh;" src="<?php echo site_url(); ?>assets/img/candidates/<?php echo $candidate['image']; ?>"></div>
+		<div id="profile-details" style="background-color: white; border-bottom: 5px solid grey; padding: 5px;"><h4 style="font-weight: bold; background-color: lightgrey; padding: 7px 7px;">@ <?php echo $candidate['uname'] ?><br><small><?php echo $candidate['first_name'] ?> <?php echo $candidate['last_name'] ?> <?php echo $candidate['other_name'] ?></small></h4>
 		<p><?php echo $candidate['dep'] ?> department. <br>
 		 <?php echo $candidate['year'] ?> level <br>
 		Running for: <?php echo $candidate['seat'] ?>
