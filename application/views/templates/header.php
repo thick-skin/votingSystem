@@ -18,6 +18,7 @@
     width: 100%;
     z-index: 9999 !important;
     background-color: #2f4f4f !important;
+    border-bottom: 1px solid white !important;
   }
 
 .nav-wrapper
@@ -37,7 +38,6 @@
     text-decoration: none;
     padding-right: 50px;
   	color: gold;
-    font-weight: bold;
     font-family: cursive;
   }
   #mySidenav a {
@@ -59,22 +59,22 @@
 
 #home {
     top: 160px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 
 #about {
     top: 210px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 
 #candidates {
     top: 260px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 
 #admin {
     top: 310px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 
 #votes {
@@ -83,11 +83,11 @@
 }
 #register {
   top: 310px;
-  background-color: #555;
+  background-color: #2f4f4f;
 }
 #dashb {
   top: 360px;
-  background-color: #555;
+  background-color: #2f4f4f;
 }
 
 @media screen and (max-height: 560px) {
@@ -106,19 +106,19 @@
 }
 #home {
     top: 160px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 #about {
     top: 200px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 #candidates {
     top: 240px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 #admin {
     top: 280px;
-    background-color: #555;
+    background-color: #2f4f4f;
 }
 #votes {
     top: 320px;
@@ -126,11 +126,11 @@
 }
 #register {
   top: 280px;/*320px*/
-  background-color: #555;
+  background-color: #2f4f4f;
 }
 #dashb {
   top: 320px;/*360px*/
-  background-color: #555;
+  background-color: #2f4f4f;
 }
 #modd {width: 45vh;}
 }
@@ -208,12 +208,12 @@
 </div>
 <!--VOTE MODAL ENDS HERE-->
 
-<div id="navDiv" class="container-fluid" style="padding-left: 10vh; background-color: #696969; height:100px;">
+<div id="navDiv" class="container-fluid" style="padding-left: 10vh; background-color: #66cdaa; height:100px;">
   <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none; color:#2f4f4f;text-shadow: 1px 1px 1px white;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
   <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
 <div class="nav-wrapper">
-<nav class="navbar navbar-default" data-spy="affix" data-offset-top="100" style="border-radius: 0%; border:none; background-color: #696969;">
+<nav class="navbar navbar-default" data-spy="affix" data-offset-top="100" style="border-radius: 0%; border:none; background-color: #66cdaa;">
 	<div class="container-fluid">
     <div class="navbar-header">
       <?php if ($this->session->userdata('log_in') || $this->session->userdata('voter_in')) : ?>
@@ -221,7 +221,7 @@
         <span style="color: white;" class="glyphicon glyphicon-menu-hamburger"></span>
       </button>
       <?php endif; ?>
-      <a class="navbar-brand" href="#" style="font-weight: bolder; color: white;"><?= $title; ?></a>
+      <a class="navbar-brand" href="#" style="font-weight: bold; color: white;"><?= $title; ?></a>
 	  <ul style="display: flex; padding-left: 0; flex-wrap: wrap;">
 	    <li style="list-style: none; margin-top: 15px;"><a id="date" href="#"><?php date_default_timezone_set('Africa/Lagos'); echo date("l, M Y");
       //echo ', '.date("h:i:sa"); ?></a></li>
