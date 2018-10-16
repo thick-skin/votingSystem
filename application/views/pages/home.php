@@ -94,11 +94,7 @@ button#say:hover{
 		<?php else: ?>
 	<h4><b>From the Administrator's desk</b></h4>
 	<p>The Admin reserves the right to take down any campaign that does not adhere to the rules.</p>
-<<<<<<< HEAD
 	<p>Candidates may be disqualified without warning if implicating information is found against him or her.</p>
-=======
-	<p>Candidates may be disqualified without warning if implicating info is found against him or her.</p>
->>>>>>> 16cdf67e529c0af9eaee214d6c28cbb8aee39457
 	<p>Details about election start and ending dates will appear here.</p>
 	<p>Any other useful info here.</p>
 	<p>Candidates reminded to register.</p>
