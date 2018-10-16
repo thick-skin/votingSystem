@@ -25,7 +25,7 @@
     </select>
   </div>
 <div class="col-sm-10" style="display: inline-flex;">
-  <h5>Showing results for the year</h5> <h5 id="year">: <?php echo 2023; ?></h5>
+  <h4>Showing results for the year</h4> <h4 id="year">: <?php echo 2023; ?></h4>
 </div>
 </div>
 <div class="well col-sm-offset-1 col-sm-10">
@@ -81,7 +81,7 @@
       e.preventDefault();
       var value = $(this).attr('value');
       //alert(value);
-      $('h5#year').text(':  '+value);
+      $('h4#year').text(':  '+value);
       //$('')
     });
               
