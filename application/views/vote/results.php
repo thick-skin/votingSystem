@@ -18,17 +18,18 @@
     <label>Election Year</label>
     <select name="eYear" id="eYear" class="form-control">
      
-      <?php $year = 2023; for ($i=$year; $i > 2017; $i--): ?>  
+      <?php $year = date("Y"); for ($i=$year; $i > 2017; $i--): ?>  
       <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
       <?php endfor; ?>
+      <option value="2017">2017</option>
         
     </select>
   </div>
 <div class="col-sm-10" style="display: inline-flex;">
-  <h4>Showing results for the year</h4> <h4 id="year">: <?php echo 2023; ?></h4>
+  <h4 class="alert alert-success">Results for:</h4> <h4 class="alert alert-success" id="year"><?php echo date("Y"); ?></h4>
 </div>
 </div>
-<div class="well col-sm-offset-1 col-sm-10">
+<div class="well col-sm-offset-1 col-sm-10 res">
   <span class="glyphicon glyphicon-print pull-right"></span><br>
   <?php if ($votes): ?>
   <?php foreach ($seats as $seat): ?>
@@ -81,19 +82,35 @@
       e.preventDefault();
       var value = $(this).attr('value');
       //alert(value);
-      $('h4#year').text(':  '+value);
-      //$('')
+      $("div.res").html('<i class="fa fa-spinner fa-spin" style="color:silver; font-size:50px;"></i>');
+      $('div.res').load('<?php echo base_url(); ?>vote/yearResult/'+value+'', {
+        value: value
+      });
+      $('h4#year').text(value);
     });
               
     $('table tr:nth-child(1) td:nth-child(3)').html('<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>');
 
-    $('div.well').on('click', '#voteNumber', function (ev) {
+    $('div.res').on('click', '#voteNumber', function (ev) {
       ev.preventDefault();
       var act = $(this).attr('href');
       var candidate = $(this).attr('data');
       var image = $(this).attr('data2');
       var numVotes = $(this).attr('text');
 
+            var head = '';
+            head += '<div class="row">'+
+                    '<div class="col-sm-6">'+
+                    '<img style="height:100%; width:100%;" src="<?php echo site_url(); ?>assets/img/candidates/'+image+'">'+
+                    '</div>'+
+                    '<div class="col-sm-6">'+
+                    '<div class="well" style="font-weight:bolder; border:none; border-radius:0;"><h4>'+candidate+'</h4>'+
+                    '<p>Total votes: '+numVotes+'</p></div>'+
+                    '</div>'+
+                    '</div>';
+      $("#voteDetails").modal('show');
+      $("#voteDetails").find('.modal-header').html(head);
+      $("#voteDetails").find('.modal-body').html('<i class="fa fa-spinner fa-spin" style="color:silver; font-size:50px;"></i>');      
       $.ajax({
         type: 'ajax',
         method: 'get',
@@ -116,20 +133,7 @@
             }
             html += '</table>';
 
-            var head = '';
-            head += '<div class="row">'+
-                    '<div class="col-sm-6">'+
-                    '<img style="height:100%; width:100%;" src="<?php echo site_url(); ?>assets/img/candidates/'+image+'">'+
-                    '</div>'+
-                    '<div class="col-sm-6">'+
-                    '<div class="well" style="font-weight:bolder; border:none; border-radius:0;"><h4>'+candidate+'</h4>'+
-                    '<p>Total votes: '+numVotes+'</p></div>'+
-                    '</div>'+
-                    '</div>';
-
-      $("#voteDetails").find('.modal-header').html(head);
       $("#voteDetails").find('.modal-body').html(html);
-      $("#voteDetails").modal('show');
         },
         error: function () {
           alert('Could not get details');

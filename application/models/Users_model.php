@@ -34,7 +34,7 @@
 
 		}
 
-		public function registerCandidate($post_image, $enc_password)
+		public function registerCandidate($post_image, $enc_password, $election_year)
 	{
 		$slug = $this->input->post('uname');
 		$data = array(
@@ -49,30 +49,36 @@
 			'gpa' => $this->input->post('gpa'), 
 			'uname' => $this->input->post('uname'), 
 			'pwd' => $enc_password,
-			'seat' => $this->input->post('seat')
+			'seat' => $this->input->post('seat'),
+			'election_year' => $election_year
 		);
 
 		return $this->db->insert('candidates', $data);
 	}
 
-	public function candidates()
+	public function candidates($election_year)
 	{
+		$election_year = $election_year;
+		$this->db->where('election_year', $election_year);
 		$this->db->order_by('id');
 		$query = $this->db->get('candidates');
 		return $query->result_array();
 	}
 
-		public function get_seats()
+		public function get_seats($election_year)
 	{
+		$election_year = $election_year;
+		$this->db->where('election_year', $election_year);
 		$this->db->order_by('id', 'DESC');
 		$query = $this->db->get('seats');
 		return $query->result_array();
 	}
 
-		public function create_seat()
+		public function create_seat($election_year)
 		{
 			$data = array(
-				'name' => $this->input->post('name')
+				'name' => $this->input->post('name'),
+				'election_year' => $election_year
 			);
 
 			return $this->db->insert('seats', $data);
@@ -87,8 +93,10 @@
 	{	
 		$name = $btn;
 
+		$this->db->where('election_year', date("Y"));
 		$this->db->where('name', $name);
 		$this->db->delete('seats');
+		$this->db->where('election_year', date("Y"));
 		$this->db->where('seat', $name);
 		$this->db->delete('candidates');
 		

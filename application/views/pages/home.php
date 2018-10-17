@@ -116,18 +116,6 @@ button#say:hover{
 </div>
 <div id="load-more" style="display: inline-flex;"><p>Loading campaign...<p class="loader"></p></p></div>
 </div>
-<div class="col-sm-3 right" style="height: 50vh;">
-	<?php if ($candidateSet == true): ?>
-	<div style="bottom: 5vh; position: fixed; width: 50%">
-		<form>
-			<div class="form-group" style="display: inline-flex;">
-			<input class="form-control" type="text" name="" placeholder="Send Message..." style="border-bottom-left-radius: 20px; border-top-left-radius: 20px; border-top-right-radius: 0; border-bottom-right-radius: 0;">
-			<button type="button" class="btn btn-info" style="border-bottom-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 20px; border-bottom-right-radius: 20px;"><i class="glyphicon glyphicon-chevron-right"></i></button>
-			</div>
-		</form>
-	</div>
-<?php endif; ?>
-</div>
 </div><br><br>
 
 <script>

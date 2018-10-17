@@ -27,9 +27,11 @@
 			if (!$this->session->userdata('voter_in')) {
 			 	redirect('home');
 			 }
+			 $election_year = date("Y");
+
 			$data['title'] = "Vote";
-			$data['candidates'] = $this->users_model->candidates();
-			$data['seats'] = $this->users_model->get_seats();
+			$data['candidates'] = $this->users_model->candidates($election_year);
+			$data['seats'] = $this->users_model->get_seats($election_year);
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('vote/index', $data);
@@ -41,12 +43,13 @@
 			if (!$this->session->userdata('voter_in')) {
 			 	redirect('home');
 			 }
-			$data['candidates'] = $this->users_model->candidates();
-			$data['seats'] = $this->users_model->get_seats();
+			 $election_year = date("Y");
+			$data['candidates'] = $this->users_model->candidates($election_year);
+			$data['seats'] = $this->users_model->get_seats($election_year);
 
 			$data = array('status' => false, 'messages' => array());
-			$seats = $this->users_model->get_seats();
-			$candidates = $this->users_model->candidates();
+			$seats = $this->users_model->get_seats($election_year);
+			$candidates = $this->users_model->candidates($election_year);
 
 			$st = 0;
 			foreach ($seats as $seat) {
@@ -74,7 +77,8 @@
 					$voteChoiceId = $candidate['id'];
 					$voterdept = $this->session->userdata('voterdept');
 					$voterlevel = $this->session->userdata('voterlevel');
-						$this->vote_model->create_vote($voterdept, $voterlevel, $voteChoice, $voteChoiceSeat, $voteChoiceId);
+					$election_year = date("Y");
+						$this->vote_model->create_vote($voterdept, $voterlevel, $voteChoice, $voteChoiceSeat, $voteChoiceId, $election_year);
 					}
 				}
 			}
@@ -115,14 +119,31 @@
 			if (!$this->session->userdata('resultReady')) {
 			 	redirect('home');
 			 }
+			 $election_year = date("Y");
+
 			$data['title'] = 'Results';
-			$data['seats'] = $this->users_model->get_seats();
-			$data['candidates'] = $this->users_model->candidates();
-			$data['votes'] = $this->vote_model->getVotes();
+			$data['seats'] = $this->users_model->get_seats($election_year);
+			$data['candidates'] = $this->users_model->candidates($election_year);
+			$data['votes'] = $this->vote_model->getVotes($election_year);
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('vote/results', $data);
 			$this->load->view('templates/footer');
+		}
+
+		public function yearResult()
+		{
+			$this->checkSm();
+			if (!$this->session->userdata('resultReady')) {
+			 	redirect('home');
+			 }
+			 $election_year = $this->uri->segment(3);
+
+			$data['seats'] = $this->users_model->get_seats($election_year);
+			$data['candidates'] = $this->users_model->candidates($election_year);
+			$data['votes'] = $this->vote_model->getVotes($election_year);
+			
+			$this->load->view('vote/resultyear', $data);
 		}
 
 		public function hideResults()

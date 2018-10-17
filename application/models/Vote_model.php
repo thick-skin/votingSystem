@@ -4,14 +4,15 @@
 		$this->load->database();	
 		}
 
-		public function create_vote($voterdept, $voterlevel, $voteChoice, $voteChoiceSeat, $voteChoiceId)
+		public function create_vote($voterdept, $voterlevel, $voteChoice, $voteChoiceSeat, $voteChoiceId, $election_year)
 		{
 			$data = array(
 				'dept' => $voterdept,
 				'level' => $voterlevel,
 				'seat' => $voteChoiceSeat,
 				'candidate' => $voteChoice,
-				'candidate_id' => $voteChoiceId
+				'candidate_id' => $voteChoiceId,
+				'election_year' => $election_year
 			);
 			//$voterid = $this->session->userdata('voter_id');
 
@@ -35,9 +36,10 @@
 			}
 		}
 
-		public function getVotes()
+		public function getVotes($election_year)
 		{
-		$query = $this->db->query('SELECT candidate, seat, COUNT(candidate) AS votecount FROM `votes` GROUP BY candidate ORDER BY votecount DESC');
+			$election_year = $election_year;
+		$query = $this->db->query('SELECT candidate, seat, COUNT(candidate) AS votecount FROM `votes` WHERE election_year = "'.$election_year.'" GROUP BY candidate ORDER BY votecount DESC');
 
 			if ($query->num_rows() > 0){
 			    foreach ($query->result() as $row) 

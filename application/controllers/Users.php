@@ -24,8 +24,9 @@
 			 	redirect('home');
 			 }
 			$data['title'] = "Register";
+			$election_year = date("Y");
 			//Show seats frm db in a select tag
-			$data['seats'] = $this->users_model->get_seats();
+			$data['seats'] = $this->users_model->get_seats($election_year);
 
 			$this->load->view('templates/header', $data);
 			$this->load->view('users/register', $data);
@@ -136,10 +137,11 @@
 				$data = array('upload_data' => $this->upload->data());
 				$post_image = $_FILES['userfile']['name'];
 			}
+			$election_year = date("Y");
 			$data['status'] = true;
 
 
-			$this->users_model->registerCandidate($post_image, $enc_password);
+			$this->users_model->registerCandidate($post_image, $enc_password, $election_year);
 		}
 		}
 		echo json_encode($data);
@@ -161,9 +163,10 @@
 		public function candidates()
 		{
 			$data['title'] = "Candidates";
+			$election_year = date("Y");
 
-			$data['candidates'] = $this->users_model->candidates();
-			$data['seats'] = $this->users_model->get_seats();
+			$data['candidates'] = $this->users_model->candidates($election_year);
+			$data['seats'] = $this->users_model->get_seats($election_year);
 			$this->checkSm();
 
 			$this->load->view('templates/header', $data);
@@ -241,11 +244,12 @@
 			 if (!$this->session->userdata('log_in')) {
 			 	redirect('home');
 			 } 
+			 $election_year = date("Y");
 			$data['title'] = 'Dashboard';
 
-			$data['seats'] = $this->users_model->get_seats();
+			$data['seats'] = $this->users_model->get_seats($election_year);
 
-			$data['votes'] = $this->vote_model->getVotes();
+			$data['votes'] = $this->vote_model->getVotes($election_year);
 			
 			$this->load->view('templates/header', $data);
 				$this->load->view('users/dashboard', $data);
@@ -255,21 +259,36 @@
 
 		public function getSeat()
 		{
-			$seats = $this->users_model->get_seats();
+			$election_year = date("Y");
+			$seats = $this->users_model->get_seats($election_year);
 
 			echo json_encode($seats);
 			
 		}
 
+		public function seatYear($str)
+        {
+        	$election_year = date("Y");
+        	$seats = $this->users_model->get_seats($election_year);
+        	foreach ($seats as $seat) {
+        		
+                if ($str == $seat['name'])
+                {
+                        $this->form_validation->set_message('seatYear', 'You have created this seat.');
+                        return FALSE;
+                }
+                else
+                {
+                        return TRUE;
+                }
+        	}
+        }
+
 		public function dashB()
 		{
 			$data = array('success' => false, 'messages' => array());
 
-			$this->form_validation->set_rules('name', 'Name', 'required|is_unique[seats.name]',
-				array(
-                'is_unique'     => 'This Seat %s already exists.'
-        )
-		);
+			$this->form_validation->set_rules('name', 'Name', 'required|callback_seatYear');
 			$this->form_validation->set_error_delimiters('<p class="text-danger">', '</p>');
 
 			if($this->form_validation->run() === FALSE){
@@ -278,8 +297,9 @@
 				}
 			} else {
 				$data['success'] = true;
+				$election_year = date("Y");
 
-				$this->users_model->create_seat();
+				$this->users_model->create_seat($election_year);
 			}
 			echo json_encode($data);
 			}

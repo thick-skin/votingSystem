@@ -1,4 +1,16 @@
     </div>
+  <?php if($title == "About"): ?>
+<div style="position: fixed; bottom:0; width: 100%;">
+	<div style="background-color: lightgrey; padding: 2vh 3vh;">
+		<form>
+			<div class="form-group" style="display: inline-flex; width: 70%;">
+			<input class="form-control" type="text" name="" placeholder="Write your complaints here..." style="border-radius: 20px; height: 7vh; margin-right: 5px;">
+			<button type="button" class="btn btn-info" style="border-radius:30px; width:7vh; height: 7vh;"><i class="glyphicon glyphicon-chevron-right glyphicon-align-center"></i></button>
+			</div>
+		</form>
+	</div>
+</div>
+  <?php endif; ?>
   </body>
   <script>
    $(document).ready(function() {

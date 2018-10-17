@@ -20,7 +20,7 @@
     background-color: #fafad2;
     font-family: Verdana;
   }
-  i.text-danger:hover{
+  i#text-danger:hover{
     font-size: 20px;
   }
   body#vote{
@@ -33,7 +33,7 @@
 <div class="col-sm-4 myDeleteClass">
   <h4 class="alert text-center">CREATE SEAT</h4>
   <div class="well">
-  <i class="text-danger"><small>NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast their votes.</small></i>
+  <i id="text-danger" style="color:darkred;"><small>NB: If there is no candidate under any post, delete the post before election day, else the voters won't be able to cast their votes.</small></i>
   <div id="the-message"></div>
 <?php echo form_open('users/dashB', array("id" => "form-user")); ?>
 <div class="form-group">
@@ -203,8 +203,8 @@
     				$('#showdata').html(html);
     				popOver();
             }else{
-          html = '<p class="text-center">Nothing to show here.</p>'
-          $('.showdata').html(html);
+          html = '<p class="text-center">You have not added any seat.</p>';
+          $('#showdata').html(html);
         }
     			},
     			error: function() {
