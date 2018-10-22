@@ -14,9 +14,9 @@
   }
 </style>
 <div class="row">
-<div class="form-group col-sm-2" style="display: inline-flex;">
+<div class="form-group col-sm-2" id="eYear" style="display: inline-flex;">
     <label>Election Year</label>
-    <select name="eYear" id="eYear" class="form-control">
+    <select name="eYear" id="eYear" class="form-control" data-native-menu="false">
      
       <?php $year = date("Y"); for ($i=$year; $i > 2017; $i--): ?>  
       <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
@@ -78,9 +78,9 @@
 <script>
   $(document).ready(function () {
 
-    $('option').click(function (e) {
-      e.preventDefault();
-      var value = $(this).attr('value');
+    $('select#eYear').change(function () {
+      //e.preventDefault();
+      var value = $(this).val();
       //alert(value);
       $("div.res").html('<i class="fa fa-spinner fa-spin" style="color:silver; font-size:50px;"></i>');
       $('div.res').load('<?php echo base_url(); ?>vote/yearResult/'+value+'', {
