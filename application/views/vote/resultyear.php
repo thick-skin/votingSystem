@@ -1,3 +1,6 @@
+<div style="display: inline-flex;">
+  <h4 class="alert alert-success" id="year"></h4>
+</div>
 <span class="glyphicon glyphicon-print pull-right"></span><br>
   <?php if ($votes && $candidates && $seats): ?>
   <?php foreach ($seats as $seat): ?>
@@ -42,3 +45,9 @@
   <?php else: ?>
       <h4>No Results Yet.</h4>
   <?php endif; ?>
+  <script>
+    var value = $('select#eYear').val();
+    $('h4#year').text('Currently showing results for the year '+value);
+
+    $('table tr:nth-child(1) td:nth-child(3)').html('<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>');
+  </script>

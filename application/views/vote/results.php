@@ -25,11 +25,11 @@
         
     </select>
   </div>
-<div class="col-sm-10" style="display: inline-flex;">
-  <h4 class="alert alert-success">Results for:</h4> <h4 class="alert alert-success" id="year"><?php echo date("Y"); ?></h4>
 </div>
+<div class="well col-sm-offset-1 col-sm-10 res" style="text-align: center;">
+<div style="display: inline-flex;">
+  <h4 class="alert alert-success" id="year">Currently showing results for the year <?php echo date("Y"); ?></h4>
 </div>
-<div class="well col-sm-offset-1 col-sm-10 res">
   <span class="glyphicon glyphicon-print pull-right"></span><br>
   <?php if ($votes): ?>
   <?php foreach ($seats as $seat): ?>
@@ -79,14 +79,16 @@
   $(document).ready(function () {
 
     $('select#eYear').change(function () {
-      //e.preventDefault();
       var value = $(this).val();
       //alert(value);
       $("div.res").html('<i class="fa fa-spinner fa-spin" style="color:silver; font-size:50px;"></i>');
       $('div.res').load('<?php echo base_url(); ?>vote/yearResult/'+value+'', {
         value: value
       });
-      $('h4#year').text(value);
+      //window.history.pushState("string", "Title", "yearResult/"+value);
+//       var href = $('a.somelink').attr('href'); //jQuery not necessary
+// history.pushState({},href,href); //change URL without reload
+// //put this in your ajax page change callback or something
     });
               
     $('table tr:nth-child(1) td:nth-child(3)').html('<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>');
@@ -110,7 +112,7 @@
                     '</div>';
       $("#voteDetails").modal('show');
       $("#voteDetails").find('.modal-header').html(head);
-      $("#voteDetails").find('.modal-body').html('<i class="fa fa-spinner fa-spin" style="color:silver; font-size:50px;"></i>');      
+      $("#voteDetails").find('.modal-body').html('<i class="fa fa-circle-o-notch fa-spin" style="color:silver; font-size:50px;"></i>');      
       $.ajax({
         type: 'ajax',
         method: 'get',

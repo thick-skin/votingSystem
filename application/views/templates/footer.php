@@ -19,6 +19,18 @@
     var html = '';
     var limit;
     limit = 2;
+
+ function countChar(val) {
+        var len = val.value.length;
+        if (len >= 300) {
+          val.value = val.value.substring(0, 300);
+        } else {
+          $('i#campCount').text(300 - len);
+        }
+      };
+  $('textarea#campaign').keyup(function () {
+    countChar(this);
+  });
 /////////////////REMOVE FLASH DATA AFTER SECONDS///////////////////
     $('#flashdata').delay(500).show(10, function() {
       $(this).delay(2000).hide(10, function() {
@@ -29,8 +41,15 @@
 
 /////////////WEBSITE LOGO ANIMATION/////////////////
     $("#small").fadeIn(2000);
-    $("h1").hover(function() {
-      $("#small").fadeToggle();
+    $("h1#logo").mouseenter(function() {
+      $("i#small").animate({
+        left: 100
+      });
+    });
+    $("h1#logo").mouseleave(function() {
+      $("i#small").animate({
+        left: 0
+      });
     });
 //////////LOGO ANIMATION ENDS/////////////////
 

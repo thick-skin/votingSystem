@@ -8,7 +8,6 @@
   	<script src="<?php echo base_url(); ?>assets/jqueryfile/jquery-3.3.1.min.js"></script>
   	<script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
  <style>
  #vote input {/*border-radius: 0%;*/}
@@ -209,8 +208,8 @@
 <!--VOTE MODAL ENDS HERE-->
 
 <div id="navDiv" class="container-fluid" style="padding-left: 10vh; background-color: #66cdaa; height:100px;">
-  <h1 style="font-family: Tahoma; font-weight: bold;"><a style="text-decoration: none; color:#2f4f4f;text-shadow: 1px 1px 1px white;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
-  <small><i id="small" style="display: none;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
+  <h1 id="logo" style="font-family: Tahoma; font-weight: bold; width: 10%;"><a style="text-decoration: none; color:#2f4f4f;text-shadow: 1px 1px 1px white;" href="<?php echo base_url(); ?>">theVotingApp</a></h1>
+  <small><i id="small" style="display: none; position: relative;">...your vote counts <span class="glyphicon glyphicon-ok"></span></i></small>
 </div>
 <div class="nav-wrapper">
 <nav class="navbar navbar-default" data-spy="affix" data-offset-top="100" style="border-radius: 0%; border:none; background-color: #66cdaa;">
@@ -258,7 +257,7 @@
             <input type="text" class="form-control" name="pass" id="pass" placeholder="Password">
           </div>
           <div class="form-group">
-            <textarea class="form-control" name="campaign" id="campaign" maxlength="300" size="300" placeholder="Campaign (Max characters-300)"></textarea><br>
+            <textarea class="form-control" name="campaign" id="campaign" maxlength="300" size="300" placeholder="Campaign (Max characters-300)"></textarea><i id="campCount"></i><br>
             <!--input type="file" name="userfile" size="20"-->
           </div>
           <button type="submit" class="btn btn-block" style="color: grey; font-weight: bold; background: transparent; border: 2px solid grey;">Post campaign</button>
