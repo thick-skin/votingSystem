@@ -17,9 +17,9 @@
 		return $query->result_array();
 	}
 
-	public function showFirstCampaign()
+	public function showFirstCampaign($lastId)
 	{
-		$query = $this->db->query('SELECT * FROM `campaign` ORDER BY id DESC LIMIT 1');
+		$query = $this->db->query('SELECT * FROM `campaign` WHERE id > "'.$lastId.'" ORDER BY id DESC');
 		return $query->result_array();
 	}
 
@@ -86,11 +86,13 @@
 			
 		}
 
-		public function create_campaign($username, $user_seat)
+		public function create_campaign($username, $user_seat, $user_id, $user_seat_id)
 		{
 			$data = array(
 				'username' => $username,
+				'user_id' => $user_id,
 				'user_seat' => $user_seat,
+				'user_seat_id' => $user_seat_id,
 				'campaign' => $this->input->post('campaign')
 			);
 

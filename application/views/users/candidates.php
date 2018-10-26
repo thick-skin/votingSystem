@@ -6,23 +6,24 @@
 	@media screen and (max-height: 560px) {
 		.col-sm-3{position: initial;}
 	}
-	a li#visit:hover {
+	a li:hover {
     background-color: lightgrey;
 }
 	</style>
 <button id="scrolltop" class="btn btn-info" type="button" style="width: 40px; height: 40px; text-align: center; border-radius: 20px; position: fixed; right: 10vh; bottom: 15vh; z-index: 20 !important;" title="To top"><span class="glyphicon glyphicon-chevron-up"></span></button>
+<input type="hidden" id="hidden" name="hidden" value="<?php echo $single; ?>">
 <div class="row">
 	<div class="col-sm-3">
 		<ul class="list-group">
-			<a href="#"><li id="all" class="list-group-item">All</li></a>
+			<a href="javascript:;"><li id="all" class="list-group-item">All</li></a>
 			<?php foreach ($seats as $seat): ?>
-			<a href="#<?php echo $seat['name']; ?>"><li id="visit" class="list-group-item"><?php echo $seat['name']; ?></li></a>
+			<a href="javascript:;"><li id="single-<?php echo $seat['id']; ?>" class="list-group-item single"><?php echo $seat['name']; ?></li></a>
 			<?php endforeach; ?>
 		</ul>
 	</div>
 	<div class="col-sm-9">
 		<?php foreach ($seats as $seat): ?>
-		<div style="padding-top: 40px;" id="<?php echo $seat['name']; ?>">
+		<div class="candidatesHide" style="padding-top: 40px;" id="single-<?php echo $seat['id']; ?>">
 		<h3 class="alert alert-info"><?php echo $seat['name']; ?></h3>
 
 <?php foreach ($candidates as $candidate): ?>
@@ -58,13 +59,32 @@
 </div>
 <script>
 	$(document).ready(function() {
-		$('li#all, button#scrolltop').click(function () {
-			$('li#visit').css("background-color", "");
+///////////////ALWAYS REMEBER THAT AN ID AND CLASS SHOULD NOT HAVE SPACES BETWEEN THE CHARACTERS//////////////
+if (($('input#hidden').val()) != 'all') {
+	var single = $("input#hidden").val();
+
+//////////////////DISPLAY SPECIFIC CANDIDATES//////////////////////////
+		$('div.candidatesHide').css('display', 'none');
+		//	alert(divId);
+			$('li').css("background-color", "");
+			$('div#'+single).css('display', 'block');
+	}
+		var divId;
+		$('li#all, button#scrolltop').click(function (e) {
+			e.preventDefault();
+			$('li').css("background-color", "");
+			$('div.candidatesHide').css('display', '');
 			jQuery('html,body').animate({scrollTop:0},0);
 		});
-		$('li#visit').click(function () {
-			$('li#visit').css("background-color", "");
+		$('li.single').mouseup(function (e) {
+			e.preventDefault();
+			divId = $(this).attr('id');
+			$('div.candidatesHide').css('display', 'none');
+		//	alert(divId);
+			$('li').css("background-color", "");
 			$(this).css("background-color", "lightblue");
+			$('div#'+divId).css('display', 'block');
 		});
+		
 	});
 </script>

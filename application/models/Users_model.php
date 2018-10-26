@@ -49,7 +49,8 @@
 			'gpa' => $this->input->post('gpa'), 
 			'uname' => $this->input->post('uname'), 
 			'pwd' => $enc_password,
-			'seat' => $this->input->post('seat'),
+			'seat' => $this->input->post('hidden'),
+			'seat_id' => $this->input->post('seat'),
 			'election_year' => $election_year
 		);
 

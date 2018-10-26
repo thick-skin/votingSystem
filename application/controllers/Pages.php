@@ -65,8 +65,9 @@ class Pages extends CI_Controller{
 	public function showFirstCampaign()
 	{
 		$candidate = $this->input->get('candidate');
+		$lastId = $this->input->get('lastId');
 			if ($candidate == 'Home') {
-			$campaign = $this->pages_model->showFirstCampaign();
+			$campaign = $this->pages_model->showFirstCampaign($lastId);
 
 			echo json_encode($campaign);
 			}else{
@@ -145,14 +146,16 @@ class Pages extends CI_Controller{
 				$password = md5($this->input->post('pass'));
 
 				// Check if candidate exists
-				$user_seats = $this->pages_model->candidateExists($username, $password);
+				$candidateExists = $this->pages_model->candidateExists($username, $password);
 
-				if ($user_seats) {
-					foreach ($user_seats as $user_seat) {
+				if ($candidateExists) {
+					foreach ($candidateExists as $candidateExist) {
 						
-					$user_seat = $user_seat['seat'];
+					$user_id = $candidateExist['id'];
+					$user_seat = $candidateExist['seat'];
+					$user_seat_id = $candidateExist['seat_id'];
 
-					$this->pages_model->create_campaign($username, $user_seat);
+					$this->pages_model->create_campaign($username, $user_seat, $user_id, $user_seat_id);
 					
 					}
 

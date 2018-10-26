@@ -1,7 +1,7 @@
 <div style="display: inline-flex;">
-  <h4 class="alert alert-success" id="year"></h4>
+  <h4 class="text-success text-uppercase" id="year"></h4>
 </div>
-<span class="glyphicon glyphicon-print pull-right"></span><br>
+<!-- <span class="glyphicon glyphicon-print pull-right"></span><br> -->
   <?php if ($votes && $candidates && $seats): ?>
   <?php foreach ($seats as $seat): ?>
   <h5 class="text-uppercase alert alert-info"><span class="text-primary glyphicon glyphicon-tag"></span><strong><?php echo $seat['name']; ?></strong></h5>  

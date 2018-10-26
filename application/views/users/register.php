@@ -108,10 +108,11 @@
     <select name="seat" id="seat" class="form-control">
         <option value="Select seat">Select-post</option>
       <?php foreach ($seats as $seat):?>
-        <option value="<?php echo $seat['name'] ?>"><?php echo $seat['name'] ?></option>
+        <option id="<?php echo $seat['id'] ?>" value="<?php echo $seat['id'] ?>" data="<?php echo $seat['name']; ?>"><?php echo $seat['name'] ?></option>
       <?php endforeach; ?>
     </select>
   </div>
+  <input type="hidden" id="hidden" name="hidden">
 		<button type="submit" class="btn btn-info">Register</button>
 	
 	<?php echo form_close(); ?>
@@ -123,6 +124,13 @@
 
 <script>
     $(document).ready(function() {
+
+       $('select#seat').change(function () {
+        var id = $(this).val();
+        var seat_id = $('option#'+id).attr('data');
+      //  alert(seat_id);
+        $('input#hidden').val(seat_id);
+       });
       
       $("#key").on('click select', function() {
         $.ajax({

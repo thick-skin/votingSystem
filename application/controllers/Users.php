@@ -164,6 +164,7 @@
 		{
 			$data['title'] = "Candidates";
 			$election_year = date("Y");
+			$data{"single"} = $this->uri->segment(3);
 
 			$data['candidates'] = $this->users_model->candidates($election_year);
 			$data['seats'] = $this->users_model->get_seats($election_year);

@@ -26,11 +26,11 @@
     </select>
   </div>
 </div>
-<div class="well col-sm-offset-1 col-sm-10 res" style="text-align: center;">
+<div class="well col-sm-offset-1 col-sm-10 res" style="text-align: center; background-color: white; border-radius: 0; box-shadow: 0 0 5px 2px grey;">
 <div style="display: inline-flex;">
-  <h4 class="alert alert-success" id="year">Currently showing results for the year <?php echo date("Y"); ?></h4>
+  <h4 class="text-success text-uppercase" id="year">Currently showing results for the year <?php echo date("Y"); ?></h4>
 </div>
-  <span class="glyphicon glyphicon-print pull-right"></span><br>
+  <!-- <span class="glyphicon glyphicon-print pull-right"></span><br> -->
   <?php if ($votes): ?>
   <?php foreach ($seats as $seat): ?>
   <h5 class="text-uppercase alert alert-info"><span class="text-primary glyphicon glyphicon-tag"></span><strong><?php echo $seat['name']; ?></strong></h5>  
@@ -86,6 +86,8 @@
         value: value
       });
       //window.history.pushState("string", "Title", "yearResult/"+value);
+      
+/////////////////////REVIEW THIS/////////////////////////////////////////////////////////
 //       var href = $('a.somelink').attr('href'); //jQuery not necessary
 // history.pushState({},href,href); //change URL without reload
 // //put this in your ajax page change callback or something

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><?= $title; ?></title>
+	<title>iVote(<?= $title; ?>)</title>
 	<meta charset="utf-8">
   	<meta name="viewport" content="width=device-width, initial-scale=1">
   	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.min.css">
@@ -141,7 +141,7 @@
   <a href="<?php echo base_url(); ?>" id="home">Home <span style="float: right;" class="glyphicon glyphicon-home"></span></a>
   <a href="<?php echo base_url(); ?>about" id="about">About<span style="float: right;" class="glyphicon glyphicon-info-sign"></span></a>
   <?php endif; ?>
-  <a href="<?php echo base_url(); ?>users/candidates" id="candidates">Candidates<span style="float: right;" class="glyphicon glyphicon-user"></span></a>
+  <a href="<?php echo base_url(); ?>users/candidates/all" id="candidates">Candidates<span style="float: right;" class="glyphicon glyphicon-user"></span></a>
   <?php if (!$this->session->userdata('log_in')) : ?>
   <?php if (!$this->session->userdata('voter_in')): ?>
   <a href="#" id="admin" data-toggle="modal" data-target="#myadmin">Admin<span style="float: right;" class="glyphicon glyphicon-log-in"></span></a>

@@ -14,11 +14,13 @@
   </body>
   <script>
    $(document).ready(function() {
+///////////////ALWAYS REMEBER THAT AN ID AND CLASS SHOULD NOT HAVE SPACES BETWEEN THE CHARACTERS//////////////
     var candidate = $('input#candidate').attr('value');
     var offset = 0;
     var html = '';
     var limit;
     limit = 2;
+    var lastId;
 
  function countChar(val) {
         var len = val.value.length;
@@ -122,6 +124,7 @@ showAllComments(camp_id);
         dataType: 'json',
         success: function(response) {
           if (response.success == true) {
+          	$('i#campCount').text('');
             // success message and remove class
             $('#showmessage').append('<p class="alert alert-success">'+'Campaign updated!'+'</p>');
             $('.form-group').removeClass('has-error')
@@ -173,29 +176,33 @@ showAllComments(camp_id);
 
 /////////////////////////SHOW FIRST CAMPAIGN//////////////////////////////
 function showFirstCampaign() {
+	lastId = lastId;
+	//alert(lastId);
   var camp_id;
   var htm = '';
   $.ajax({
         type: 'ajax',
         method: 'get',
-        data: {candidate: candidate},
+        data: {candidate: candidate, lastId: lastId},
         url: '<?php echo base_url(); ?>pages/showFirstCampaign',
         async: false,
         dataType: 'json',
         success: function(data) {
             var i, campaign, user_seat, username;
+            lastId = data[0].id;
             for (i = 0; i < data.length; i++) {
              jQuery.nl2br = function(varTest){
                return varTest.replace(/(\r\n|\n\r|\r|\n)/g, "<br>");
              };
              campaign = $.nl2br(data[i].campaign);
              user_seat = data[i].user_seat;
+             user_seat_id = data[i].user_seat_id;
              camp_id = data[i].id;
              username = data[i].username;
 
              htm += '<div id="campaignFeed-'+camp_id+'" class="well campaignFeed">'+
-             '<h4>@ <b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
-             '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates#'+user_seat+'">'+user_seat+
+             '<h4><b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">@'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
+             '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates/single-'+user_seat_id+'">'+user_seat+
              '</a></small>'+
              '</h4>'+
              '<p style="color: #556b2f;">'+
@@ -249,18 +256,20 @@ function showFirstCampaign() {
         success: function(data) {
           if (data.length > 0) {
             var i, campaign, user_seat, username;
+            lastId = data[0].id;
             for (i = 0; i < data.length; i++) {
              jQuery.nl2br = function(varTest){
                return varTest.replace(/(\r\n|\n\r|\r|\n)/g, "<br>");
              };
              campaign = $.nl2br(data[i].campaign);
              user_seat = data[i].user_seat;
+             user_seat_id = data[i].user_seat_id;
              camp_id = data[i].id;
              username = data[i].username;
 
              html += '<div id="campaignFeed-'+camp_id+'" class="well campaignFeed">'+
-             '<h4>@ <b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
-             '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates#'+user_seat+'">'+user_seat+
+             '<h4><b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">@'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
+             '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates/single-'+user_seat_id+'">'+user_seat+
              '</a></small>'+
              '</h4>'+
              '<p style="color: #556b2f;">'+
@@ -325,12 +334,13 @@ $(window).scroll(function() {
              };
              campaign = $.nl2br(data[i].campaign);
              user_seat = data[i].user_seat;
+             user_seat_id = data[i].user_seat_id;
              camp_id = data[i].id;
              username = data[i].username;
 
              html += '<div id="campaignFeed-'+camp_id+'" class="well campaignFeed">'+
-             '<h4>@ <b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
-             '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates#'+user_seat+'">'+user_seat+
+             '<h4><b><a href="<?php echo base_url(); ?>pages/candidatePersonal/'+username+'">@'+username+'</a></b> <small style="float: right;">'+data[i].created_date+'</small><br>'+
+             '<small>Running for: <a href="<?php echo base_url(); ?>users/candidates/single-'+user_seat_id+'">'+user_seat+
              '</a></small>'+
              '</h4>'+
              '<p style="color: #556b2f;">'+
